@@ -5,10 +5,13 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, constan
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes, ConversationHandler, CallbackQueryHandler
 
 # --- Configuration ---
-# IMPORTANT: Replace these values with your actual data
 BOT_TOKEN = "8344380865:AAHJ3U860YnHoANuiBuPUcJvmNsZvTx6zhU"  # Get this from BotFather on Telegram
-TELEGRAM_CHANNEL_LINK = "YOUR_AICC_TELEGRAM_CHANNEL_LINK_HERE"
-TWITTER_LINK = "YOUR_AICC_X_PROFILE_LINK_HERE"
+TELEGRAM_CHANNEL_LINK = "https://t.me/AICCTOKEN1"
+INSTAGRAM_LINK = "https://www.instagram.com/aicctoken1"
+DISCORD_LINK = "https://discord.com/invite/zcudDUgqSr"
+YOUTUBE_LINK = "https://www.youtube.com/@aicc-token2025"
+TIKTOK_LINK = "https://www.tiktok.com/@aicctoken1"
+TWITTER_LINK = "https://x.com/AiccToken2025"
 MIN_REFERRALS_FOR_WITHDRAWAL = 10
 REWARD_PER_TASK = 1  # Reward for completing one task
 REWARD_PER_REFERRAL = 3 # Reward for one successful referral
@@ -26,10 +29,14 @@ logger = logging.getLogger(__name__)
 (
     START_ROUTES,
     AWAIT_CHANNEL_JOIN,
+    AWAIT_INSTAGRAM_FOLLOW,
+    AWAIT_DISCORD_JOIN,
+    AWAIT_YOUTUBE_SUBSCRIBE,
+    AWAIT_TIKTOK_FOLLOW,
     AWAIT_TWITTER_FOLLOW,
     MAIN_MENU,
     AWAIT_WALLET_ADDRESS,
-) = range(5)
+) = range(9)
 
 # --- Data Handling Functions ---
 
@@ -146,16 +153,180 @@ async def handle_channel_join(update: Update, context: ContextTypes.DEFAULT_TYPE
         parse_mode=constants.ParseMode.MARKDOWN_V2
     )
     
+    return await ask_to_follow_instagram(update, context)
+
+
+async def ask_to_follow_instagram(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Task 2: Asks the user to follow on Instagram."""
+    keyboard = [[InlineKeyboardButton("Follow on Instagram", url=INSTAGRAM_LINK)]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
+    message = (
+        "Task 2: Please follow our official Instagram account\\.\n\n"
+        "After following, please send a screenshot as proof\\.\n\n"
+        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
+        "and submitting fake proof will result in your withdrawal being declined\\."
+    )
+    
+    await update.message.reply_text(
+        message,
+        reply_markup=reply_markup,
+        parse_mode=constants.ParseMode.MARKDOWN_V2
+    )
+    return AWAIT_INSTAGRAM_FOLLOW
+
+
+async def handle_instagram_follow(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Handles the response after asking to follow on Instagram."""
+    user_id = get_user_id_str(update)
+    data = load_user_data()
+    data[user_id]["balance"] += REWARD_PER_TASK
+    save_user_data(data)
+
+    message = (
+        "Thank you for your submission\\.\n\n"
+        "⚠️ *Important:* Hope you didn't cheat the system\\. All tasks will be verified manually "
+        "before your airdrop withdrawal is processed\\.\n\n"
+        "Now for the next task\\."
+    )
+    await update.message.reply_text(
+        message,
+        parse_mode=constants.ParseMode.MARKDOWN_V2
+    )
+    
+    return await ask_to_join_discord(update, context)
+
+
+async def ask_to_join_discord(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Task 3: Asks the user to join the Discord server."""
+    keyboard = [[InlineKeyboardButton("Join Discord", url=DISCORD_LINK)]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
+    message = (
+        "Task 3: Please join our Discord Server\\.\n\n"
+        "After joining, please send a screenshot as proof\\.\n\n"
+        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
+        "and submitting fake proof will result in your withdrawal being declined\\."
+    )
+    
+    await update.message.reply_text(
+        message,
+        reply_markup=reply_markup,
+        parse_mode=constants.ParseMode.MARKDOWN_V2
+    )
+    return AWAIT_DISCORD_JOIN
+
+
+async def handle_discord_join(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Handles the response after asking to join Discord."""
+    user_id = get_user_id_str(update)
+    data = load_user_data()
+    data[user_id]["balance"] += REWARD_PER_TASK
+    save_user_data(data)
+
+    message = (
+        "Thank you for your submission\\.\n\n"
+        "⚠️ *Important:* Hope you didn't cheat the system\\. All tasks will be verified manually "
+        "before your airdrop withdrawal is processed\\.\n\n"
+        "Now for the next task\\."
+    )
+    await update.message.reply_text(
+        message,
+        parse_mode=constants.ParseMode.MARKDOWN_V2
+    )
+    
+    return await ask_to_subscribe_youtube(update, context)
+
+
+async def ask_to_subscribe_youtube(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Task 4: Asks the user to subscribe on YouTube."""
+    keyboard = [[InlineKeyboardButton("Subscribe on YouTube", url=YOUTUBE_LINK)]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
+    message = (
+        "Task 4: Please subscribe to our YouTube Channel\\.\n\n"
+        "After subscribing, please send a screenshot as proof\\.\n\n"
+        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
+        "and submitting fake proof will result in your withdrawal being declined\\."
+    )
+    
+    await update.message.reply_text(
+        message,
+        reply_markup=reply_markup,
+        parse_mode=constants.ParseMode.MARKDOWN_V2
+    )
+    return AWAIT_YOUTUBE_SUBSCRIBE
+
+
+async def handle_youtube_subscribe(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Handles the response after asking to subscribe on YouTube."""
+    user_id = get_user_id_str(update)
+    data = load_user_data()
+    data[user_id]["balance"] += REWARD_PER_TASK
+    save_user_data(data)
+
+    message = (
+        "Thank you for your submission\\.\n\n"
+        "⚠️ *Important:* Hope you didn't cheat the system\\. All tasks will be verified manually "
+        "before your airdrop withdrawal is processed\\.\n\n"
+        "Now for the next task\\."
+    )
+    await update.message.reply_text(
+        message,
+        parse_mode=constants.ParseMode.MARKDOWN_V2
+    )
+    
+    return await ask_to_follow_tiktok(update, context)
+
+
+async def ask_to_follow_tiktok(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Task 5: Asks the user to follow on TikTok."""
+    keyboard = [[InlineKeyboardButton("Follow on TikTok", url=TIKTOK_LINK)]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
+    message = (
+        "Task 5: Please follow our TikTok account\\.\n\n"
+        "After following, please send a screenshot as proof\\.\n\n"
+        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
+        "and submitting fake proof will result in your withdrawal being declined\\."
+    )
+    
+    await update.message.reply_text(
+        message,
+        reply_markup=reply_markup,
+        parse_mode=constants.ParseMode.MARKDOWN_V2
+    )
+    return AWAIT_TIKTOK_FOLLOW
+
+
+async def handle_tiktok_follow(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Handles the response after asking to follow on TikTok."""
+    user_id = get_user_id_str(update)
+    data = load_user_data()
+    data[user_id]["balance"] += REWARD_PER_TASK
+    save_user_data(data)
+
+    message = (
+        "Thank you for your submission\\.\n\n"
+        "⚠️ *Important:* Hope you didn't cheat the system\\. All tasks will be verified manually "
+        "before your airdrop withdrawal is processed\\.\n\n"
+        "Now for the final task\\."
+    )
+    await update.message.reply_text(
+        message,
+        parse_mode=constants.ParseMode.MARKDOWN_V2
+    )
+    
     return await ask_to_follow_twitter(update, context)
 
 
 async def ask_to_follow_twitter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Task 2: Asks the user to follow on Twitter."""
+    """Task 6: Asks the user to follow on Twitter."""
     keyboard = [[InlineKeyboardButton("Follow on X (Twitter)", url=TWITTER_LINK)]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
     message = (
-        "Task 2: Please follow our official X (Twitter) account\\.\n\n"
+        "Task 6: Please follow our official X (Twitter) account\\.\n\n"
         "After following, please send a screenshot as proof\\.\n\n"
         "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
         "and submitting fake proof will result in your withdrawal being declined\\."
@@ -239,7 +410,7 @@ async def referral_button(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     await query.answer()
     user_id = get_user_id_str(update)
     bot_username = (await context.bot.get_me()).username
-    referral_link = f"https.t.me/{bot_username}?start={user_id}"
+    referral_link = f"https://t.me/{bot_username}?start={user_id}"
 
     message = (
         f"Your unique referral link is:\n\n`{escape_markdown(referral_link)}`\n\n"
@@ -315,6 +486,10 @@ def main() -> None:
         entry_points=[CommandHandler("start", start)],
         states={
             AWAIT_CHANNEL_JOIN: [MessageHandler(filters.PHOTO | filters.TEXT & ~filters.COMMAND, handle_channel_join)],
+            AWAIT_INSTAGRAM_FOLLOW: [MessageHandler(filters.PHOTO | filters.TEXT & ~filters.COMMAND, handle_instagram_follow)],
+            AWAIT_DISCORD_JOIN: [MessageHandler(filters.PHOTO | filters.TEXT & ~filters.COMMAND, handle_discord_join)],
+            AWAIT_YOUTUBE_SUBSCRIBE: [MessageHandler(filters.PHOTO | filters.TEXT & ~filters.COMMAND, handle_youtube_subscribe)],
+            AWAIT_TIKTOK_FOLLOW: [MessageHandler(filters.PHOTO | filters.TEXT & ~filters.COMMAND, handle_tiktok_follow)],
             AWAIT_TWITTER_FOLLOW: [MessageHandler(filters.PHOTO | filters.TEXT & ~filters.COMMAND, handle_twitter_follow)],
             MAIN_MENU: [
                 CallbackQueryHandler(balance_button, pattern="^balance$"),
