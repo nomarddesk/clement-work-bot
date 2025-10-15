@@ -76,21 +76,24 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """
     user = update.effective_user
     user_id = get_user_id_str(update)
+    logger.info(f"User {user.id} ({user.username}) started the bot.")
     data = load_user_data()
 
     # Check if user is already in the system
     if user_id in data:
         if data[user_id].get("tasks_completed", False):
+            logger.info(f"User {user_id} is already registered and completed tasks. Showing main menu.")
             await show_main_menu(update, context, "Welcome back!")
             return MAIN_MENU
         else:
             # User started but didn't finish, restart the process
+            logger.info(f"User {user_id} is restarting the tasks.")
             await update.message.reply_text(
                 "Welcome back! It looks like you haven't completed all the tasks yet. Let's start from the beginning."
             )
-            # Fallthrough to start the tasks
     else:
         # New user
+        logger.info(f"New user {user_id} is starting the airdrop.")
         data[user_id] = {
             "username": user.username,
             "tasks_completed": False,
@@ -117,6 +120,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 async def ask_to_join_channel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Task 1: Asks the user to join the Telegram channel."""
+    logger.info(f"Asking user {get_user_id_str(update)} to join Telegram channel.")
     keyboard = [[InlineKeyboardButton("Join Channel", url=TELEGRAM_CHANNEL_LINK)]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
@@ -138,6 +142,7 @@ async def ask_to_join_channel(update: Update, context: ContextTypes.DEFAULT_TYPE
 async def handle_channel_join(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Handles the response after asking to join the channel."""
     user_id = get_user_id_str(update)
+    logger.info(f"User {user_id} submitted proof for Telegram channel.")
     data = load_user_data()
     data[user_id]["balance"] += REWARD_PER_TASK
     save_user_data(data)
@@ -158,6 +163,7 @@ async def handle_channel_join(update: Update, context: ContextTypes.DEFAULT_TYPE
 
 async def ask_to_follow_instagram(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Task 2: Asks the user to follow on Instagram."""
+    logger.info(f"Asking user {get_user_id_str(update)} to follow Instagram.")
     keyboard = [[InlineKeyboardButton("Follow on Instagram", url=INSTAGRAM_LINK)]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
@@ -179,6 +185,7 @@ async def ask_to_follow_instagram(update: Update, context: ContextTypes.DEFAULT_
 async def handle_instagram_follow(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Handles the response after asking to follow on Instagram."""
     user_id = get_user_id_str(update)
+    logger.info(f"User {user_id} submitted proof for Instagram.")
     data = load_user_data()
     data[user_id]["balance"] += REWARD_PER_TASK
     save_user_data(data)
@@ -199,6 +206,7 @@ async def handle_instagram_follow(update: Update, context: ContextTypes.DEFAULT_
 
 async def ask_to_join_discord(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Task 3: Asks the user to join the Discord server."""
+    logger.info(f"Asking user {get_user_id_str(update)} to join Discord.")
     keyboard = [[InlineKeyboardButton("Join Discord", url=DISCORD_LINK)]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
@@ -220,6 +228,7 @@ async def ask_to_join_discord(update: Update, context: ContextTypes.DEFAULT_TYPE
 async def handle_discord_join(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Handles the response after asking to join Discord."""
     user_id = get_user_id_str(update)
+    logger.info(f"User {user_id} submitted proof for Discord.")
     data = load_user_data()
     data[user_id]["balance"] += REWARD_PER_TASK
     save_user_data(data)
@@ -240,6 +249,7 @@ async def handle_discord_join(update: Update, context: ContextTypes.DEFAULT_TYPE
 
 async def ask_to_subscribe_youtube(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Task 4: Asks the user to subscribe on YouTube."""
+    logger.info(f"Asking user {get_user_id_str(update)} to subscribe to YouTube.")
     keyboard = [[InlineKeyboardButton("Subscribe on YouTube", url=YOUTUBE_LINK)]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
@@ -261,6 +271,7 @@ async def ask_to_subscribe_youtube(update: Update, context: ContextTypes.DEFAULT
 async def handle_youtube_subscribe(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Handles the response after asking to subscribe on YouTube."""
     user_id = get_user_id_str(update)
+    logger.info(f"User {user_id} submitted proof for YouTube.")
     data = load_user_data()
     data[user_id]["balance"] += REWARD_PER_TASK
     save_user_data(data)
@@ -281,6 +292,7 @@ async def handle_youtube_subscribe(update: Update, context: ContextTypes.DEFAULT
 
 async def ask_to_follow_tiktok(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Task 5: Asks the user to follow on TikTok."""
+    logger.info(f"Asking user {get_user_id_str(update)} to follow TikTok.")
     keyboard = [[InlineKeyboardButton("Follow on TikTok", url=TIKTOK_LINK)]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
@@ -302,6 +314,7 @@ async def ask_to_follow_tiktok(update: Update, context: ContextTypes.DEFAULT_TYP
 async def handle_tiktok_follow(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Handles the response after asking to follow on TikTok."""
     user_id = get_user_id_str(update)
+    logger.info(f"User {user_id} submitted proof for TikTok.")
     data = load_user_data()
     data[user_id]["balance"] += REWARD_PER_TASK
     save_user_data(data)
@@ -322,6 +335,7 @@ async def handle_tiktok_follow(update: Update, context: ContextTypes.DEFAULT_TYP
 
 async def ask_to_follow_twitter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Task 6: Asks the user to follow on Twitter."""
+    logger.info(f"Asking user {get_user_id_str(update)} to follow Twitter.")
     keyboard = [[InlineKeyboardButton("Follow on X (Twitter)", url=TWITTER_LINK)]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
@@ -343,6 +357,7 @@ async def ask_to_follow_twitter(update: Update, context: ContextTypes.DEFAULT_TY
 async def handle_twitter_follow(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Handles the response after asking to follow on Twitter and completes the tasks."""
     user_id = get_user_id_str(update)
+    logger.info(f"User {user_id} submitted proof for Twitter. All tasks complete.")
     data = load_user_data()
 
     # Final task reward
@@ -354,7 +369,7 @@ async def handle_twitter_follow(update: Update, context: ContextTypes.DEFAULT_TY
     if referrer_id and referrer_id in data:
         data[referrer_id]["referrals"] += 1
         data[referrer_id]["balance"] += REWARD_PER_REFERRAL
-        logger.info(f"User {referrer_id} referral count incremented.")
+        logger.info(f"User {referrer_id} referral count incremented by user {user_id}.")
 
     save_user_data(data)
 
@@ -372,6 +387,7 @@ async def handle_twitter_follow(update: Update, context: ContextTypes.DEFAULT_TY
 
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE, text: str):
     """Displays the main menu keyboard."""
+    logger.info(f"Showing main menu to user {get_user_id_str(update)}.")
     keyboard = [
         [InlineKeyboardButton("💰 My Balance", callback_data="balance")],
         [InlineKeyboardButton("🔗 Get Referral Link", callback_data="referral")],
@@ -391,6 +407,7 @@ async def balance_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     query = update.callback_query
     await query.answer()
     user_id = get_user_id_str(update)
+    logger.info(f"User {user_id} requested their balance.")
     data = load_user_data()
     
     balance = data.get(user_id, {}).get("balance", 0)
@@ -409,6 +426,7 @@ async def referral_button(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     query = update.callback_query
     await query.answer()
     user_id = get_user_id_str(update)
+    logger.info(f"User {user_id} requested their referral link.")
     bot_username = (await context.bot.get_me()).username
     referral_link = f"https://t.me/{bot_username}?start={user_id}"
 
@@ -426,6 +444,7 @@ async def withdraw_button(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     query = update.callback_query
     await query.answer()
     user_id = get_user_id_str(update)
+    logger.info(f"User {user_id} initiated withdrawal process.")
     data = load_user_data()
     user_data = data.get(user_id, {})
 
@@ -434,6 +453,7 @@ async def withdraw_button(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         return MAIN_MENU
 
     if user_data.get("referrals", 0) >= MIN_REFERRALS_FOR_WITHDRAWAL:
+        logger.info(f"User {user_id} is eligible to withdraw. Asking for wallet.")
         await query.message.reply_text(
             "Congratulations! You are eligible for withdrawal.\n\n"
             "Please enter your BEP-20 (Binance Smart Chain) wallet address to receive your AICC tokens."
@@ -441,6 +461,7 @@ async def withdraw_button(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         return AWAIT_WALLET_ADDRESS
     else:
         needed = MIN_REFERRALS_FOR_WITHDRAWAL - user_data.get("referrals", 0)
+        logger.info(f"User {user_id} is not eligible to withdraw. Needs {needed} more referrals.")
         await query.message.reply_text(
             f"You are not yet eligible for withdrawal.\n"
             f"You need at least {MIN_REFERRALS_FOR_WITHDRAWAL} referrals to withdraw.\n"
@@ -457,13 +478,14 @@ async def save_wallet(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
 
     # Basic validation for wallet address (can be improved)
     if not (wallet_address.startswith("0x") and len(wallet_address) == 42):
-         await update.message.reply_text("That doesn't look like a valid wallet address. Please try again.")
+         logger.warning(f"User {user_id} submitted an invalid wallet address: {wallet_address}")
+         await update.message.reply_text("That doesn't look like a valid BEP-20 wallet address. It should start with '0x' and be 42 characters long. Please try again.")
          return AWAIT_WALLET_ADDRESS
 
     data[user_id]["wallet_address"] = wallet_address
     save_user_data(data)
 
-    logger.info(f"User {user_id} submitted wallet: {wallet_address}")
+    logger.info(f"User {user_id} successfully submitted wallet: {wallet_address}")
     await update.message.reply_text(
         "Thank you! Your wallet address has been saved.\n"
         "We will process your airdrop distribution after manual verification. Please be patient."
@@ -474,23 +496,32 @@ async def save_wallet(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
 
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Cancels and ends the conversation."""
+    user_id = get_user_id_str(update)
+    logger.info(f"User {user_id} cancelled the conversation.")
     await update.message.reply_text("Action cancelled.")
     return ConversationHandler.END
+
+async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Log Errors caused by Updates."""
+    logger.error("Exception while handling an update:", exc_info=context.error)
 
 
 def main() -> None:
     """Run the bot."""
     application = Application.builder().token(BOT_TOKEN).build()
 
+    # A more robust filter that accepts any message type for task submissions, but ignores commands.
+    submission_filter = filters.ALL & (~filters.COMMAND)
+
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start)],
         states={
-            AWAIT_CHANNEL_JOIN: [MessageHandler(filters.PHOTO | filters.TEXT & ~filters.COMMAND, handle_channel_join)],
-            AWAIT_INSTAGRAM_FOLLOW: [MessageHandler(filters.PHOTO | filters.TEXT & ~filters.COMMAND, handle_instagram_follow)],
-            AWAIT_DISCORD_JOIN: [MessageHandler(filters.PHOTO | filters.TEXT & ~filters.COMMAND, handle_discord_join)],
-            AWAIT_YOUTUBE_SUBSCRIBE: [MessageHandler(filters.PHOTO | filters.TEXT & ~filters.COMMAND, handle_youtube_subscribe)],
-            AWAIT_TIKTOK_FOLLOW: [MessageHandler(filters.PHOTO | filters.TEXT & ~filters.COMMAND, handle_tiktok_follow)],
-            AWAIT_TWITTER_FOLLOW: [MessageHandler(filters.PHOTO | filters.TEXT & ~filters.COMMAND, handle_twitter_follow)],
+            AWAIT_CHANNEL_JOIN: [MessageHandler(submission_filter, handle_channel_join)],
+            AWAIT_INSTAGRAM_FOLLOW: [MessageHandler(submission_filter, handle_instagram_follow)],
+            AWAIT_DISCORD_JOIN: [MessageHandler(submission_filter, handle_discord_join)],
+            AWAIT_YOUTUBE_SUBSCRIBE: [MessageHandler(submission_filter, handle_youtube_subscribe)],
+            AWAIT_TIKTOK_FOLLOW: [MessageHandler(submission_filter, handle_tiktok_follow)],
+            AWAIT_TWITTER_FOLLOW: [MessageHandler(submission_filter, handle_twitter_follow)],
             MAIN_MENU: [
                 CallbackQueryHandler(balance_button, pattern="^balance$"),
                 CallbackQueryHandler(referral_button, pattern="^referral$"),
@@ -502,6 +533,9 @@ def main() -> None:
     )
 
     application.add_handler(conv_handler)
+
+    # Add the error handler
+    application.add_error_handler(error_handler)
 
     print("Bot is running...")
     application.run_polling()
