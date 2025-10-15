@@ -67,6 +67,123 @@ def escape_markdown(text: str) -> str:
     return ''.join(f'\\{char}' if char in escape_chars else char for char in text)
 
 
+# --- Task Prompting Functions ---
+
+async def ask_to_join_channel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Task 1: Asks the user to join the Telegram channel."""
+    logger.info(f"Asking user {get_user_id_str(update)} to join Telegram channel.")
+    keyboard = [[InlineKeyboardButton("Join Channel", url=TELEGRAM_CHANNEL_LINK)]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
+    message = (
+        "Task 1: Please join our Telegram Channel\\.\n\n"
+        "After joining, please send a screenshot as proof\\.\n\n"
+        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
+        "and submitting fake proof will result in your withdrawal being declined\\."
+    )
+
+    await update.message.reply_text(
+        message,
+        reply_markup=reply_markup,
+        parse_mode=constants.ParseMode.MARKDOWN_V2
+    )
+
+async def ask_to_follow_instagram(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Task 2: Asks the user to follow on Instagram."""
+    logger.info(f"Asking user {get_user_id_str(update)} to follow Instagram.")
+    keyboard = [[InlineKeyboardButton("Follow on Instagram", url=INSTAGRAM_LINK)]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
+    message = (
+        "Task 2: Please follow our official Instagram account\\.\n\n"
+        "After following, please send a screenshot as proof\\.\n\n"
+        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
+        "and submitting fake proof will result in your withdrawal being declined\\."
+    )
+    
+    await update.message.reply_text(
+        message,
+        reply_markup=reply_markup,
+        parse_mode=constants.ParseMode.MARKDOWN_V2
+    )
+
+async def ask_to_join_discord(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Task 3: Asks the user to join the Discord server."""
+    logger.info(f"Asking user {get_user_id_str(update)} to join Discord.")
+    keyboard = [[InlineKeyboardButton("Join Discord", url=DISCORD_LINK)]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
+    message = (
+        "Task 3: Please join our Discord Server\\.\n\n"
+        "After joining, please send a screenshot as proof\\.\n\n"
+        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
+        "and submitting fake proof will result in your withdrawal being declined\\."
+    )
+    
+    await update.message.reply_text(
+        message,
+        reply_markup=reply_markup,
+        parse_mode=constants.ParseMode.MARKDOWN_V2
+    )
+
+async def ask_to_subscribe_youtube(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Task 4: Asks the user to subscribe on YouTube."""
+    logger.info(f"Asking user {get_user_id_str(update)} to subscribe to YouTube.")
+    keyboard = [[InlineKeyboardButton("Subscribe on YouTube", url=YOUTUBE_LINK)]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
+    message = (
+        "Task 4: Please subscribe to our YouTube Channel\\.\n\n"
+        "After subscribing, please send a screenshot as proof\\.\n\n"
+        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
+        "and submitting fake proof will result in your withdrawal being declined\\."
+    )
+    
+    await update.message.reply_text(
+        message,
+        reply_markup=reply_markup,
+        parse_mode=constants.ParseMode.MARKDOWN_V2
+    )
+
+async def ask_to_follow_tiktok(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Task 5: Asks the user to follow on TikTok."""
+    logger.info(f"Asking user {get_user_id_str(update)} to follow TikTok.")
+    keyboard = [[InlineKeyboardButton("Follow on TikTok", url=TIKTOK_LINK)]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
+    message = (
+        "Task 5: Please follow our TikTok account\\.\n\n"
+        "After following, please send a screenshot as proof\\.\n\n"
+        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
+        "and submitting fake proof will result in your withdrawal being declined\\."
+    )
+    
+    await update.message.reply_text(
+        message,
+        reply_markup=reply_markup,
+        parse_mode=constants.ParseMode.MARKDOWN_V2
+    )
+
+async def ask_to_follow_twitter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Task 6: Asks the user to follow on Twitter."""
+    logger.info(f"Asking user {get_user_id_str(update)} to follow Twitter.")
+    keyboard = [[InlineKeyboardButton("Follow on X (Twitter)", url=TWITTER_LINK)]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
+    message = (
+        "Task 6: Please follow our official X (Twitter) account\\.\n\n"
+        "After following, please send a screenshot as proof\\.\n\n"
+        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
+        "and submitting fake proof will result in your withdrawal being declined\\."
+    )
+    
+    await update.message.reply_text(
+        message,
+        reply_markup=reply_markup,
+        parse_mode=constants.ParseMode.MARKDOWN_V2
+    )
+
+
 # --- Conversation Handler Functions ---
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
@@ -115,27 +232,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
                 logger.info(f"User {user_id} was referred by {referrer_id}")
 
     save_user_data(data)
-    return await ask_to_join_channel(update, context)
-
-
-async def ask_to_join_channel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Task 1: Asks the user to join the Telegram channel."""
-    logger.info(f"Asking user {get_user_id_str(update)} to join Telegram channel.")
-    keyboard = [[InlineKeyboardButton("Join Channel", url=TELEGRAM_CHANNEL_LINK)]]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    
-    message = (
-        "Task 1: Please join our Telegram Channel\\.\n\n"
-        "After joining, please send a screenshot as proof\\.\n\n"
-        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
-        "and submitting fake proof will result in your withdrawal being declined\\."
-    )
-
-    await update.message.reply_text(
-        message,
-        reply_markup=reply_markup,
-        parse_mode=constants.ParseMode.MARKDOWN_V2
-    )
+    await ask_to_join_channel(update, context)
     return AWAIT_CHANNEL_JOIN
 
 
@@ -158,27 +255,7 @@ async def handle_channel_join(update: Update, context: ContextTypes.DEFAULT_TYPE
         parse_mode=constants.ParseMode.MARKDOWN_V2
     )
     
-    return await ask_to_follow_instagram(update, context)
-
-
-async def ask_to_follow_instagram(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Task 2: Asks the user to follow on Instagram."""
-    logger.info(f"Asking user {get_user_id_str(update)} to follow Instagram.")
-    keyboard = [[InlineKeyboardButton("Follow on Instagram", url=INSTAGRAM_LINK)]]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    
-    message = (
-        "Task 2: Please follow our official Instagram account\\.\n\n"
-        "After following, please send a screenshot as proof\\.\n\n"
-        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
-        "and submitting fake proof will result in your withdrawal being declined\\."
-    )
-    
-    await update.message.reply_text(
-        message,
-        reply_markup=reply_markup,
-        parse_mode=constants.ParseMode.MARKDOWN_V2
-    )
+    await ask_to_follow_instagram(update, context)
     return AWAIT_INSTAGRAM_FOLLOW
 
 
@@ -201,27 +278,7 @@ async def handle_instagram_follow(update: Update, context: ContextTypes.DEFAULT_
         parse_mode=constants.ParseMode.MARKDOWN_V2
     )
     
-    return await ask_to_join_discord(update, context)
-
-
-async def ask_to_join_discord(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Task 3: Asks the user to join the Discord server."""
-    logger.info(f"Asking user {get_user_id_str(update)} to join Discord.")
-    keyboard = [[InlineKeyboardButton("Join Discord", url=DISCORD_LINK)]]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    
-    message = (
-        "Task 3: Please join our Discord Server\\.\n\n"
-        "After joining, please send a screenshot as proof\\.\n\n"
-        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
-        "and submitting fake proof will result in your withdrawal being declined\\."
-    )
-    
-    await update.message.reply_text(
-        message,
-        reply_markup=reply_markup,
-        parse_mode=constants.ParseMode.MARKDOWN_V2
-    )
+    await ask_to_join_discord(update, context)
     return AWAIT_DISCORD_JOIN
 
 
@@ -244,27 +301,7 @@ async def handle_discord_join(update: Update, context: ContextTypes.DEFAULT_TYPE
         parse_mode=constants.ParseMode.MARKDOWN_V2
     )
     
-    return await ask_to_subscribe_youtube(update, context)
-
-
-async def ask_to_subscribe_youtube(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Task 4: Asks the user to subscribe on YouTube."""
-    logger.info(f"Asking user {get_user_id_str(update)} to subscribe to YouTube.")
-    keyboard = [[InlineKeyboardButton("Subscribe on YouTube", url=YOUTUBE_LINK)]]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    
-    message = (
-        "Task 4: Please subscribe to our YouTube Channel\\.\n\n"
-        "After subscribing, please send a screenshot as proof\\.\n\n"
-        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
-        "and submitting fake proof will result in your withdrawal being declined\\."
-    )
-    
-    await update.message.reply_text(
-        message,
-        reply_markup=reply_markup,
-        parse_mode=constants.ParseMode.MARKDOWN_V2
-    )
+    await ask_to_subscribe_youtube(update, context)
     return AWAIT_YOUTUBE_SUBSCRIBE
 
 
@@ -287,27 +324,7 @@ async def handle_youtube_subscribe(update: Update, context: ContextTypes.DEFAULT
         parse_mode=constants.ParseMode.MARKDOWN_V2
     )
     
-    return await ask_to_follow_tiktok(update, context)
-
-
-async def ask_to_follow_tiktok(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Task 5: Asks the user to follow on TikTok."""
-    logger.info(f"Asking user {get_user_id_str(update)} to follow TikTok.")
-    keyboard = [[InlineKeyboardButton("Follow on TikTok", url=TIKTOK_LINK)]]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    
-    message = (
-        "Task 5: Please follow our TikTok account\\.\n\n"
-        "After following, please send a screenshot as proof\\.\n\n"
-        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
-        "and submitting fake proof will result in your withdrawal being declined\\."
-    )
-    
-    await update.message.reply_text(
-        message,
-        reply_markup=reply_markup,
-        parse_mode=constants.ParseMode.MARKDOWN_V2
-    )
+    await ask_to_follow_tiktok(update, context)
     return AWAIT_TIKTOK_FOLLOW
 
 
@@ -330,27 +347,7 @@ async def handle_tiktok_follow(update: Update, context: ContextTypes.DEFAULT_TYP
         parse_mode=constants.ParseMode.MARKDOWN_V2
     )
     
-    return await ask_to_follow_twitter(update, context)
-
-
-async def ask_to_follow_twitter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Task 6: Asks the user to follow on Twitter."""
-    logger.info(f"Asking user {get_user_id_str(update)} to follow Twitter.")
-    keyboard = [[InlineKeyboardButton("Follow on X (Twitter)", url=TWITTER_LINK)]]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    
-    message = (
-        "Task 6: Please follow our official X (Twitter) account\\.\n\n"
-        "After following, please send a screenshot as proof\\.\n\n"
-        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
-        "and submitting fake proof will result in your withdrawal being declined\\."
-    )
-    
-    await update.message.reply_text(
-        message,
-        reply_markup=reply_markup,
-        parse_mode=constants.ParseMode.MARKDOWN_V2
-    )
+    await ask_to_follow_twitter(update, context)
     return AWAIT_TWITTER_FOLLOW
 
 
