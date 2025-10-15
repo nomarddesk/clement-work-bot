@@ -183,6 +183,15 @@ async def ask_to_follow_twitter(update: Update, context: ContextTypes.DEFAULT_TY
         parse_mode=constants.ParseMode.MARKDOWN_V2
     )
 
+async def ask_for_wallet_address_as_task(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Final Task: Asks for BNB wallet address."""
+    logger.info(f"Asking user {get_user_id_str(update)} for wallet address as final task.")
+    message = (
+        "🎉 All social tasks completed\\!\n\n"
+        "For the final task, please submit your BNB \\(BEP\\-20\\) address to get your airdrop tokens\\."
+    )
+    await update.message.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN_V2)
+
 
 # --- Conversation Handler Functions ---
 
@@ -340,7 +349,7 @@ async def handle_tiktok_follow(update: Update, context: ContextTypes.DEFAULT_TYP
         "Thank you for your submission\\.\n\n"
         "⚠️ *Important:* Hope you didn't cheat the system\\. All tasks will be verified manually "
         "before your airdrop withdrawal is processed\\.\n\n"
-        "Now for the final task\\."
+        "Now for the final social task\\."
     )
     await update.message.reply_text(
         message,
@@ -352,9 +361,9 @@ async def handle_tiktok_follow(update: Update, context: ContextTypes.DEFAULT_TYP
 
 
 async def handle_twitter_follow(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Handles the response after asking to follow on Twitter and completes the tasks."""
+    """Handles the response after asking to follow on Twitter and transitions to wallet submission."""
     user_id = get_user_id_str(update)
-    logger.info(f"User {user_id} submitted proof for Twitter. All tasks complete.")
+    logger.info(f"User {user_id} submitted proof for Twitter. All social tasks complete.")
     data = load_user_data()
 
     # Final task reward
@@ -369,15 +378,35 @@ async def handle_twitter_follow(update: Update, context: ContextTypes.DEFAULT_TY
         logger.info(f"User {referrer_id} referral count incremented by user {user_id}.")
 
     save_user_data(data)
+    
+    await ask_for_wallet_address_as_task(update, context)
+    return AWAIT_WALLET_ADDRESS
 
+
+async def save_wallet(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Saves the user's wallet address after tasks are completed."""
+    wallet_address = update.message.text
+    user_id = get_user_id_str(update)
+    data = load_user_data()
+
+    # Basic validation for wallet address
+    if not (wallet_address.startswith("0x") and len(wallet_address) == 42):
+         logger.warning(f"User {user_id} submitted an invalid wallet address: {wallet_address}")
+         await update.message.reply_text("That doesn't look like a valid BEP-20 wallet address. It should start with '0x' and be 42 characters long. Please try again.")
+         return AWAIT_WALLET_ADDRESS
+
+    data[user_id]["wallet_address"] = wallet_address
+    save_user_data(data)
+
+    logger.info(f"User {user_id} successfully submitted wallet: {wallet_address}")
+    
     message = (
-        "🎉 All tasks completed\\! Thank you for your participation\\.\n\n"
-        "⚠️ *Important:* Hope you didn't cheat the system\\. All tasks will be verified manually before your airdrop withdrawal is processed\\."
+        "Thank you\\! Your wallet address has been saved\\.\n\n"
+        "Remember, your withdrawal will be processed after manual verification, provided you meet the referral requirement of "
+        f"*{MIN_REFERRALS_FOR_WITHDRAWAL} referrals*\\.\n\nYou can check your progress from the main menu\\."
     )
-    await update.message.reply_text(
-        message,
-        parse_mode=constants.ParseMode.MARKDOWN_V2
-    )
+    
+    await update.message.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN_V2)
     await show_main_menu(update, context, "You can now check your balance or get your referral link.")
     return MAIN_MENU
 
@@ -388,7 +417,7 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE, tex
     keyboard = [
         [InlineKeyboardButton("💰 My Balance", callback_data="balance")],
         [InlineKeyboardButton("🔗 Get Referral Link", callback_data="referral")],
-        [InlineKeyboardButton("💸 Withdraw", callback_data="withdraw")],
+        [InlineKeyboardButton("💸 Withdraw Status", callback_data="withdraw")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -437,57 +466,39 @@ async def referral_button(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
 
 async def withdraw_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Handles the 'Withdraw' button press."""
+    """Handles the 'Withdraw' button press, which now acts as a status check."""
     query = update.callback_query
     await query.answer()
     user_id = get_user_id_str(update)
-    logger.info(f"User {user_id} initiated withdrawal process.")
+    logger.info(f"User {user_id} initiated withdrawal status check.")
     data = load_user_data()
     user_data = data.get(user_id, {})
 
-    if user_data.get("wallet_address"):
-        await query.message.reply_text(f"You have already submitted your wallet address: `{escape_markdown(user_data['wallet_address'])}`", parse_mode=constants.ParseMode.MARKDOWN_V2)
+    if not user_data.get("wallet_address"):
+        await query.message.reply_text("You must complete all the tasks to submit your wallet address first.")
         return MAIN_MENU
 
+    wallet_address_md = f"`{escape_markdown(user_data['wallet_address'])}`"
     if user_data.get("referrals", 0) >= MIN_REFERRALS_FOR_WITHDRAWAL:
-        logger.info(f"User {user_id} is eligible to withdraw. Asking for wallet.")
-        await query.message.reply_text(
-            "Congratulations! You are eligible for withdrawal.\n\n"
-            "Please enter your BEP-20 (Binance Smart Chain) wallet address to receive your AICC tokens."
+        logger.info(f"User {user_id} is eligible for withdrawal.")
+        message = (
+            "Congratulations\\! You have met the referral requirement\\.\n\n"
+            "Your airdrop will be sent to your saved address after manual verification of your tasks\\.\n\n"
+            f"Your saved address: {wallet_address_md}"
         )
-        return AWAIT_WALLET_ADDRESS
+        await query.message.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN_V2)
     else:
         needed = MIN_REFERRALS_FOR_WITHDRAWAL - user_data.get("referrals", 0)
-        logger.info(f"User {user_id} is not eligible to withdraw. Needs {needed} more referrals.")
-        await query.message.reply_text(
-            f"You are not yet eligible for withdrawal.\n"
-            f"You need at least {MIN_REFERRALS_FOR_WITHDRAWAL} referrals to withdraw.\n"
-            f"You currently have {user_data.get('referrals', 0)} referrals. You need {needed} more."
+        logger.info(f"User {user_id} is not yet eligible for withdrawal.")
+        message = (
+            "You are not yet eligible for withdrawal\\.\n"
+            f"You need at least *{MIN_REFERRALS_FOR_WITHDRAWAL}* referrals\\. You currently have *{user_data.get('referrals', 0)}*\\.\n"
+            f"You need *{needed}* more\\.\n\n"
+            "Your airdrop will be sent to your saved address once you meet the requirement\\.\n\n"
+            f"Your saved address: {wallet_address_md}"
         )
-        return MAIN_MENU
-
-
-async def save_wallet(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Saves the user's wallet address."""
-    wallet_address = update.message.text
-    user_id = get_user_id_str(update)
-    data = load_user_data()
-
-    # Basic validation for wallet address (can be improved)
-    if not (wallet_address.startswith("0x") and len(wallet_address) == 42):
-         logger.warning(f"User {user_id} submitted an invalid wallet address: {wallet_address}")
-         await update.message.reply_text("That doesn't look like a valid BEP-20 wallet address. It should start with '0x' and be 42 characters long. Please try again.")
-         return AWAIT_WALLET_ADDRESS
-
-    data[user_id]["wallet_address"] = wallet_address
-    save_user_data(data)
-
-    logger.info(f"User {user_id} successfully submitted wallet: {wallet_address}")
-    await update.message.reply_text(
-        "Thank you! Your wallet address has been saved.\n"
-        "We will process your airdrop distribution after manual verification. Please be patient."
-    )
-    await show_main_menu(update, context, "You can still check your balance or invite more friends.")
+        await query.message.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN_V2)
+        
     return MAIN_MENU
 
 
