@@ -11,7 +11,7 @@ INSTAGRAM_LINK = "https://www.instagram.com/aicctoken1"
 DISCORD_LINK = "https://discord.com/invite/zcudDUgqSr"
 YOUTUBE_LINK = "https://www.youtube.com/@aicc-token2025"
 TIKTOK_LINK = "https://www.tiktok.com/@aicctoken1"
-TWITTER_LINK = "https://x.com/AiccToken2025"
+# TWITTER_LINK has been removed as per the new flow
 MIN_REFERRALS_FOR_WITHDRAWAL = 10
 REWARD_PER_TASK = 1  # Reward for completing one task
 REWARD_PER_REFERRAL = 3 # Reward for one successful referral
@@ -25,7 +25,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Define states for the conversation
+# Define states for the conversation (AWAIT_TWITTER_FOLLOW removed)
 (
     START_ROUTES,
     AWAIT_CHANNEL_JOIN,
@@ -33,10 +33,9 @@ logger = logging.getLogger(__name__)
     AWAIT_DISCORD_JOIN,
     AWAIT_YOUTUBE_SUBSCRIBE,
     AWAIT_TIKTOK_FOLLOW,
-    AWAIT_TWITTER_FOLLOW,
     MAIN_MENU,
     AWAIT_WALLET_ADDRESS,
-) = range(9)
+) = range(8)
 
 # --- Data Handling Functions ---
 
@@ -153,25 +152,6 @@ async def ask_to_follow_tiktok(update: Update, context: ContextTypes.DEFAULT_TYP
     
     message = (
         "Task 5: Please follow our TikTok account\\.\n\n"
-        "After following, please send a screenshot as proof\\.\n\n"
-        "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
-        "and submitting fake proof will result in your withdrawal being declined\\."
-    )
-    
-    await update.message.reply_text(
-        message,
-        reply_markup=reply_markup,
-        parse_mode=constants.ParseMode.MARKDOWN_V2
-    )
-
-async def ask_to_follow_twitter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Task 6: Asks the user to follow on Twitter."""
-    logger.info(f"Asking user {get_user_id_str(update)} to follow Twitter.")
-    keyboard = [[InlineKeyboardButton("Follow on X (Twitter)", url=TWITTER_LINK)]]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    
-    message = (
-        "Task 6: Please follow our official X (Twitter) account\\.\n\n"
         "After following, please send a screenshot as proof\\.\n\n"
         "*Warning:* Do not attempt to cheat the system\\. All task submissions are manually verified, "
         "and submitting fake proof will result in your withdrawal being declined\\."
@@ -326,7 +306,7 @@ async def handle_youtube_subscribe(update: Update, context: ContextTypes.DEFAULT
         "Thank you for your submission\\.\n\n"
         "⚠️ *Important:* Hope you didn't cheat the system\\. All tasks will be verified manually "
         "before your airdrop withdrawal is processed\\.\n\n"
-        "Now for the next task\\."
+        "Now for the final social task\\."
     )
     await update.message.reply_text(
         message,
@@ -338,35 +318,12 @@ async def handle_youtube_subscribe(update: Update, context: ContextTypes.DEFAULT
 
 
 async def handle_tiktok_follow(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Handles the response after asking to follow on TikTok."""
+    """Handles the response after asking to follow on TikTok, now the final social task."""
     user_id = get_user_id_str(update)
-    logger.info(f"User {user_id} submitted proof for TikTok.")
-    data = load_user_data()
-    data[user_id]["balance"] += REWARD_PER_TASK
-    save_user_data(data)
-
-    message = (
-        "Thank you for your submission\\.\n\n"
-        "⚠️ *Important:* Hope you didn't cheat the system\\. All tasks will be verified manually "
-        "before your airdrop withdrawal is processed\\.\n\n"
-        "Now for the final social task\\."
-    )
-    await update.message.reply_text(
-        message,
-        parse_mode=constants.ParseMode.MARKDOWN_V2
-    )
-    
-    await ask_to_follow_twitter(update, context)
-    return AWAIT_TWITTER_FOLLOW
-
-
-async def handle_twitter_follow(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Handles the response after asking to follow on Twitter and transitions to wallet submission."""
-    user_id = get_user_id_str(update)
-    logger.info(f"User {user_id} submitted proof for Twitter. All social tasks complete.")
+    logger.info(f"User {user_id} submitted proof for TikTok. All social tasks complete.")
     data = load_user_data()
 
-    # Final task reward
+    # Final social task reward
     data[user_id]["balance"] += REWARD_PER_TASK
     data[user_id]["tasks_completed"] = True
 
@@ -402,12 +359,13 @@ async def save_wallet(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
     
     message = (
         "Thank you\\! Your wallet address has been saved\\.\n\n"
-        "Remember, your withdrawal will be processed after manual verification, provided you meet the referral requirement of "
-        f"*{MIN_REFERRALS_FOR_WITHDRAWAL} referrals*\\.\n\nYou can check your progress from the main menu\\."
+        "The final step is to invite friends\\. While this is optional, you need "
+        f"*{MIN_REFERRALS_FOR_WITHDRAWAL} successful referrals* to unlock your airdrop withdrawal\\.\n\n"
+        "Click the button in the menu below to get your unique referral link\\."
     )
     
     await update.message.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN_V2)
-    await show_main_menu(update, context, "You can now check your balance or get your referral link.")
+    await show_main_menu(update, context, "You can now check your balance or get your referral link to invite friends\\.")
     return MAIN_MENU
 
 
@@ -529,7 +487,6 @@ def main() -> None:
             AWAIT_DISCORD_JOIN: [MessageHandler(submission_filter, handle_discord_join)],
             AWAIT_YOUTUBE_SUBSCRIBE: [MessageHandler(submission_filter, handle_youtube_subscribe)],
             AWAIT_TIKTOK_FOLLOW: [MessageHandler(submission_filter, handle_tiktok_follow)],
-            AWAIT_TWITTER_FOLLOW: [MessageHandler(submission_filter, handle_twitter_follow)],
             MAIN_MENU: [
                 CallbackQueryHandler(balance_button, pattern="^balance$"),
                 CallbackQueryHandler(referral_button, pattern="^referral$"),
