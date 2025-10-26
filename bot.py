@@ -413,21 +413,24 @@ async def new_player_flow(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     query = update.callback_query
     await query.answer()
     await query.edit_message_text(text=s(context)['new_player_start'], parse_mode='Markdown')
-    return await ask_question(update, context, 'use_vpn_q', NP_Q1_VPN, NP_Q1_VPN)
+    # --- FIX: Pass the *next* state for "Yes" ---
+    return await ask_question(update, context, 'use_vpn_q', NP_Q2_CLOUD, NP_Q1_VPN)
 
 async def existing_player_flow(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Start of the Existing Player flow. Asks Q1."""
     query = update.callback_query
     await query.answer()
     await query.edit_message_text(text=s(context)['existing_player_start'], parse_mode='Markdown')
-    return await ask_question(update, context, 'find_island_q', EP_Q1_FIND_ISLAND, EP_Q1_FIND_ISLAND)
+    # --- FIX: Pass the *next* state for "Yes" ---
+    return await ask_question(update, context, 'find_island_q', EP_Q2_SETUP, EP_Q1_FIND_ISLAND)
 
 async def support_flow(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Start of the Support flow. Asks Q1."""
     query = update.callback_query
     await query.answer()
     await query.edit_message_text(text=s(context)['support_start'], parse_mode='Markdown')
-    return await ask_question(update, context, 'use_vpn_q', S_Q1_VPN, S_Q1_VPN)
+    # --- FIX: Pass the *next* state for "Yes" ---
+    return await ask_question(update, context, 'use_vpn_q', S_Q2_CLOUD, S_Q1_VPN)
 
 # --- Fallback for "No" answers with B1/B2 options ---
 async def handle_no_option(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
@@ -570,38 +573,41 @@ async def handle_yes_option(update: Update, context: ContextTypes.DEFAULT_TYPE) 
 
     # Map of "Yes" callbacks to the *next* question to ask
     # Format: CURRENT_STATE_NAME: (next_question_key, next_state_yes, next_state_no)
+    # --- FIX: Corrected the entire map's logic ---
     YES_BRANCH_MAP = {
-        'NP_Q2_CLOUD': ('create_cloud_profile_q', NP_Q2_CLOUD, NP_Q2_CLOUD), # From VPN B1
-        'NP_Q3_EPIC_CODE': ('receive_epic_code_q', NP_Q3_EPIC_CODE, NP_Q3_EPIC_CODE), # From Cloud B2
-        'NP_Q6_LAUNCH': ('launch_game_q', NP_Q6_LAUNCH, NP_Q6_LAUNCH), # From Shortcut B2
-        'NP_Q8_SETUP': ('find_island_q', NP_Q8_SETUP, NP_Q8_SETUP), # From Island B2
-        'NP_Q9_PLAY_130': ('follow_setup_q', NP_Q9_PLAY_130, NP_Q9_PLAY_130), # From Setup B2
-        'NP_Q10_LIKE': ('play_130_hours_q', NP_Q10_LIKE, NP_Q10_LIKE), # From Play B1
-        'NP_Q11_SAVE': ('like_q', NP_Q11_SAVE, NP_Q11_SAVE), # From Like B2
-        'NP_Q12_INFLUENCER': ('save_favorite_q', NP_Q12_INFLUENCER, NP_Q12_INFLUENCER), # From Save B2
+        # --- New Player Flow ---
+        'NP_Q2_CLOUD': ('create_cloud_profile_q', NP_Q3_EPIC_CODE, NP_Q2_CLOUD),
+        'NP_Q3_EPIC_CODE': ('receive_epic_code_q', NP_Q4_EPIC_PROFILE, NP_Q3_EPIC_CODE),
+        'NP_Q4_EPIC_PROFILE': ('create_epic_profile_q', NP_Q5_SHORTCUT, NP_Q4_EPIC_PROFILE),
+        'NP_Q5_SHORTCUT': ('create_shortcut_q', NP_Q6_LAUNCH, NP_Q5_SHORTCUT),
+        'NP_Q6_LAUNCH': ('launch_game_q', NP_Q7_FIND_ISLAND, NP_Q6_LAUNCH),
+        'NP_Q7_FIND_ISLAND': ('find_island_q', NP_Q8_SETUP, NP_Q7_FIND_ISLAND),
+        'NP_Q8_SETUP': ('follow_setup_q', NP_Q9_PLAY_130, NP_Q8_SETUP),
+        'NP_Q9_PLAY_130': ('play_130_hours_q', NP_Q10_LIKE, NP_Q9_PLAY_130),
+        'NP_Q10_LIKE': ('like_q', NP_Q11_SAVE, NP_Q10_LIKE),
+        'NP_Q11_SAVE': ('save_favorite_q', NP_Q12_INFLUENCER, NP_Q11_SAVE),
+        'NP_Q12_INFLUENCER': ('influencer_q', GET_INFLUENCER_NAME, NP_Q12_INFLUENCER),
 
-        'EP_Q2_SETUP': ('find_island_q', EP_Q2_SETUP, EP_Q2_SETUP), # From Island B2
-        'EP_Q3_PLAY_130': ('follow_setup_q', EP_Q3_PLAY_130, EP_Q3_PLAY_130), # From Setup B2
-        'EP_Q4_LIKE': ('play_130_hours_q', EP_Q4_LIKE, EP_Q4_LIKE), # From Play B1
-        'EP_Q5_SAVE': ('like_q', EP_Q5_SAVE, EP_Q5_SAVE), # From Like B2
-        'EP_Q6_INFLUENCER': ('save_favorite_q', EP_Q6_INFLUENCER, EP_Q6_INFLUENCER), # From Save B2
+        # --- Existing Player Flow ---
+        'EP_Q2_SETUP': ('follow_setup_q', EP_Q3_PLAY_130, EP_Q2_SETUP),
+        'EP_Q3_PLAY_130': ('play_130_hours_q', EP_Q4_LIKE, EP_Q3_PLAY_130),
+        'EP_Q4_LIKE': ('like_q', EP_Q5_SAVE, EP_Q4_LIKE),
+        'EP_Q5_SAVE': ('save_favorite_q', EP_Q6_INFLUENCER, EP_Q5_SAVE),
+        'EP_Q6_INFLUENCER': ('influencer_q', GET_INFLUENCER_NAME, EP_Q6_INFLUENCER),
 
-        'S_Q2_CLOUD': ('create_cloud_profile_q', S_Q2_CLOUD, S_Q2_CLOUD), # From VPN B1
-        'S_Q3_EPIC_CODE': ('receive_epic_code_q', S_Q3_EPIC_CODE, S_Q3_EPIC_CODE), # From Cloud B2
-        'S_Q6_LAUNCH': ('launch_game_q', S_Q6_LAUNCH, S_Q6_LAUNCH), # From Shortcut B2
-        'S_Q8_SETUP': ('find_island_q', S_Q8_SETUP, S_Q8_SETUP), # From Island B2
-        'S_Q9_PLAY_130': ('follow_setup_q', S_Q9_PLAY_130, S_Q9_PLAY_130), # From Setup B2
-        'S_Q10_LIKE': ('play_130_hours_q', S_Q10_LIKE, S_Q10_LIKE), # From Play B1
-        'S_Q11_SAVE': ('like_q', S_Q11_SAVE, S_Q11_SAVE), # From Like B2
-        'S_Q12_INFLUENCER': ('save_favorite_q', S_Q12_INFLUENCER, S_Q12_INFLUENCER), # From Save B2
-        
-        # --- Influencer is the last "normal" question ---
-        'NP_Q12_INFLUENCER_FINAL': ('influencer_q', NP_Q12_INFLUENCER, NP_Q12_INFLUENCER),
-        'EP_Q6_INFLUENCER_FINAL': ('influencer_q', EP_Q6_INFLUENCER, EP_Q6_INFLUENCER),
-        'S_Q12_INFLUENCER_FINAL': ('influencer_q', S_Q12_INFLUENCER, S_Q12_INFLUENCER),
-        
-        # --- Support has one more question ---
-        'S_Q13_FINAL': ('support_final_q', S_Q13_FINAL, S_Q13_FINAL),
+        # --- Support Flow ---
+        'S_Q2_CLOUD': ('create_cloud_profile_q', S_Q3_EPIC_CODE, S_Q2_CLOUD),
+        'S_Q3_EPIC_CODE': ('receive_epic_code_q', S_Q4_EPIC_PROFILE, S_Q3_EPIC_CODE),
+        'S_Q4_EPIC_PROFILE': ('create_epic_profile_q', S_Q5_SHORTCUT, S_Q4_EPIC_PROFILE),
+        'S_Q5_SHORTCUT': ('create_shortcut_q', S_Q6_LAUNCH, S_Q5_SHORTCUT),
+        'S_Q6_LAUNCH': ('launch_game_q', S_Q7_FIND_ISLAND, S_Q6_LAUNCH),
+        'S_Q7_FIND_ISLAND': ('find_island_q', S_Q8_SETUP, S_Q7_FIND_ISLAND),
+        'S_Q8_SETUP': ('follow_setup_q', S_Q9_PLAY_130, S_Q8_SETUP),
+        'S_Q9_PLAY_1S0': ('play_130_hours_q', S_Q10_LIKE, S_Q9_PLAY_130),
+        'S_Q10_LIKE': ('like_q', S_Q11_SAVE, S_Q10_LIKE),
+        'S_Q11_SAVE': ('save_favorite_q', S_Q12_INFLUENCER, S_Q11_SAVE),
+        'S_Q12_INFLUENCER': ('influencer_q', GET_INFLUENCER_NAME, S_Q12_INFLUENCER),
+        'S_Q13_FINAL': ('support_final_q', S_Q14_GET_USERNAME, S_Q13_FINAL),
     }
 
     if state_name not in YES_BRANCH_MAP:
@@ -812,4 +818,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
