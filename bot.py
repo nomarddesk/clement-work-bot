@@ -25,9 +25,9 @@ CONFIGURATION = {
     'EPIC_ACTIVATE_LINK': "http://epicgames.com/activate",
     'EPIC_REGISTER_LINK': "https://www.epicgames.com/id/register", # Using register link, not just epicgames.com
     'ISLAND_CODES': [
-        "CODE123",  # <-- Change this
-        "ISLAND456", # <-- Change this
-        "MAP789"    # <-- Change this
+        "4828-9033-2281",  # <-- Change this
+        "2753-4695-7191", # <-- Change this
+        "9689-1352-5966"    # <-- Change this
     ]
 }
 # !!!!!!!!!!!!!!!!!!!!!
@@ -53,6 +53,7 @@ STRINGS = {
         'go_to_channel': "Please see our channel for instructions on this step.",
         'go_to_channel_btn': "Go to Channel",
         'codes_message': "Just copy one of them and enter it on the search bar:",
+        'btn_continue': "Continue ➡️",
         
         # --- Existing Player ---
         'ep_start': "Note: Since you're playing on the cloud, your session will last for 1 hour. The game will close, and you will have to launch it again to keep playing. You probably know this because you already followed all the instructions.",
@@ -81,6 +82,7 @@ STRINGS = {
         'ep_q6': "Were you introduced to this game by an influencer?",
         'ep_q6_yes': "Yes, provide the name please:",
         'ep_q6_no_action': "Go to our channel and look for instruction 13.",
+        'ep_end_flow': "Thank you for the information.",
         
         # --- New Player ---
         'np_start': "Note: You're diving into an immersive gaming adventure. This bot will help you set up your account, join the game, start playing, and progressing. Because you are playing on the cloud, your session will last for 1 hour. The game will close, and you will have to launch it again to keep playing.",
@@ -117,12 +119,13 @@ STRINGS = {
         'np_q6_b1_action': "Click here to launch the game:",
         'np_q6_b1_btn': "Launch Fortnite",
         'np_q6_b2_action': "Please go to our channel if you have trouble launching.",
-        'np_q7': "Have you searched and found the reward Island? (Same as EP Q1)",
-        'np_q8': "Did you follow the full setup to be able to play with friends and progress together without any worries? (Same as EP Q2)",
-        'np_q9': "Will you start the game and play 130 hours for free this week? (Same as EP Q3)",
-        'np_q10': "With your new account, will you click on the like button every single time before your 1-hour play session ended during your 130 hours of play this week? (Same as EP Q4)",
-        'np_q11': "Will you save the reward Island to your favorites? (Same as EP Q5)",
-        'np_q12': "Were you introduced to this game by an influencer? (Same as EP Q6)",
+        'np_q7': "Have you searched and found the reward Island?",
+        'np_q8': "Did you follow the full setup to be able to play with friends and progress together without any worries?",
+        'np_q9': "Will you start the game and play 130 hours for free this week?",
+        'np_q10': "With your new account, will you click on the like button every single time before your 1-hour play session ended during your 130 hours of play this week?",
+        'np_q11': "Will you save the reward Island to your favorites?",
+        'np_q12': "Were you introduced to this game by an influencer?",
+        'np_end_flow': "Thank you. You are all set up.",
 
         # --- Support ---
         's_start': "Note: In order to get in touch with us, you need to answer these questions so we can determine which stage of the process you’re at. If everything has been done correctly, you’ll be able to receive your reward.",
@@ -136,6 +139,7 @@ STRINGS = {
         's_q13_yes': "Yes, I did it and I will send you all the necessary screenshots.",
         's_q13_no': "No",
         's_q13_no_action': "Please complete all steps in the channel guide before requesting support.",
+        's_end_flow': "Thank you. We will review your submission and get in touch.",
         
         # --- Text Prompts ---
         'prompt_influencer': "Please type the name of the influencer who introduced you to the game and press send:",
@@ -162,6 +166,7 @@ STRINGS = {
         'go_to_channel': "Veuillez consulter notre canal pour les instructions sur cette étape.",
         'go_to_channel_btn': "Aller au Canal",
         'codes_message': "Copiez-en un et entrez-le dans la barre de recherche :",
+        'btn_continue': "Continuer ➡️",
         
         # --- Existing Player ---
         'ep_start': "Note : Puisque vous jouez sur le cloud, votre session durera 1 heure. Le jeu se fermera et vous devrez le relancer pour continuer à jouer. Vous le savez probablement déjà car vous avez suivi toutes les instructions.",
@@ -190,6 +195,7 @@ STRINGS = {
         'ep_q6': "Ce jeu vous a-t-il été présenté par un influenceur ?",
         'ep_q6_yes': "Oui, veuillez indiquer le nom :",
         'ep_q6_no_action': "Allez sur notre canal et consultez l'instruction 13.",
+        'ep_end_flow': "Merci pour les informations.",
 
         # --- New Player ---
         'np_start': "Note : Tu plonges dans une aventure de jeu immersive. Ce bot t'aidera à configurer ton compte, à rejoindre la partie, à commencer à jouer et à progresser. Parce que tu joues sur le cloud, ta session durera 1 heure. Le jeu se fermera, et tu devras le relancer pour continuer à jouer.",
@@ -226,12 +232,13 @@ STRINGS = {
         'np_q6_b1_action': "Cliquez ici pour lancer le jeu :",
         'np_q6_b1_btn': "Lancer Fortnite",
         'np_q6_b2_action': "Veuillez consulter notre canal si vous avez des problèmes.",
-        'np_q7': "Avez-vous cherché et trouvé l'Île de Récompense ? (Identique à EP Q1)",
-        'np_q8': "Avez-vous suivi la configuration complète pour pouvoir jouer avec des amis et progresser ensemble sans soucis ? (Identique à EP Q2)",
-        'np_q9': "Allez-vous démarrer le jeu et jouer 130 heures gratuitement cette semaine ? (Identique à EP Q3)",
-        'np_q10': "Avec votre nouveau compte, cliquerez-vous sur le bouton 'J'aime' à chaque fois avant la fin de votre session de jeu d'une heure durant vos 130 heures de jeu cette semaine ? (Identique à EP Q4)",
-        'np_q11': "Allez-vous enregistrer l'Île de Récompense dans vos favoris ? (Identique à EP Q5)",
-        'np_q12': "Ce jeu vous a-t-il été présenté par un influenceur ? (Identique à EP Q6)",
+        'np_q7': "Avez-vous cherché et trouvé l'Île de Récompense ?",
+        'np_q8': "Avez-vous suivi la configuration complète pour pouvoir jouer avec des amis et progresser ensemble sans soucis ?",
+        'np_q9': "Allez-vous démarrer le jeu et jouer 130 heures gratuitement cette semaine ?",
+        'np_q10': "Avec votre nouveau compte, cliquerez-vous sur le bouton 'J'aime' à chaque fois avant la fin de votre session de jeu d'une heure durant vos 130 heures de jeu cette semaine ?",
+        'np_q11': "Allez-vous enregistrer l'Île de Récompense dans vos favoris ?",
+        'np_q12': "Ce jeu vous a-t-il été présenté par un influenceur ?",
+        'np_end_flow': "Merci. Vous êtes prêt.",
 
         # --- Support ---
         's_start': "Note : Pour nous contacter, vous devez répondre à ces questions afin que nous puissions déterminer à quelle étape du processus vous vous trouvez. Si tout a été fait correctement, vous pourrez recevoir votre récompense.",
@@ -245,6 +252,7 @@ STRINGS = {
         's_q13_yes': "Oui, je l'ai fait et je vous enverrai toutes les captures d'écran nécessaires.",
         's_q13_no': "Non",
         's_q13_no_action': "Veuillez compléter toutes les étapes dans le guide du canal avant de demander du support.",
+        's_end_flow': "Merci. Nous examinerons votre soumission et vous contacterons.",
         
         # --- Text Prompts ---
         'prompt_influencer': "Veuillez taper le nom de l'influenceur qui vous a présenté le jeu et appuyez sur envoyer :",
@@ -260,8 +268,18 @@ STRINGS = {
     SELECT_LANG, MAIN_MENU,
     EP_START, EP_Q1, EP_Q2, EP_Q3, EP_Q4, EP_Q5, EP_Q6, EP_GET_INFLUENCER,
     NP_START, NP_Q1, NP_Q2, NP_Q3, NP_Q4, NP_Q5, NP_Q6, NP_Q7, NP_Q8, NP_Q9, NP_Q10, NP_Q11, NP_Q12, NP_GET_INFLUENCER,
-    S_START, S_Q1, S_Q2, S_Q3, S_Q4, S_Q5, S_Q6, S_Q7, S_Q8, S_Q9, S_Q10, S_Q11, S_Q12, S_Q13, S_GET_INFLUENCER, S_GET_USERNAME
-) = range(37)
+    S_START, S_Q1, S_Q2, S_Q3, S_Q4, S_Q5, S_Q6, S_Q7, S_Q8, S_Q9, S_Q10, S_Q11, S_Q12, S_Q13, S_GET_INFLUENCER, S_GET_USERNAME,
+    EP_Q1_CODES_DONE, EP_END_FLOW,
+    
+    # New states for NP flow continuation
+    NP_Q2_URL_DONE, NP_Q3_URL_DONE, NP_Q4_URL_DONE, NP_Q5_GOTO_DONE, NP_Q6_URL_DONE,
+    NP_Q7_CODES_DONE, NP_Q8_GOTO_DONE, NP_Q10_GOTO_DONE, NP_Q11_GOTO_DONE, NP_END_FLOW,
+
+    # New states for S flow continuation
+    S_Q2_URL_DONE, S_Q3_URL_DONE, S_Q4_URL_DONE, S_Q5_GOTO_DONE, S_Q6_URL_DONE,
+    S_Q7_CODES_DONE, S_Q8_GOTO_DONE, S_Q10_GOTO_DONE, S_Q11_GOTO_DONE, S_Q12_ACTION_DONE, S_END_FLOW
+
+) = range(61)
 
 
 # === HELPER FUNCTIONS ===
@@ -274,37 +292,45 @@ def get_config(key: str) -> str | list:
     """Gets a value from the CONFIGURATION dict."""
     return CONFIGURATION.get(key, f"ERROR_NO_CONFIG_FOR_{key}")
 
-async def send_go_to_channel(update: Update, context: ContextTypes.DEFAULT_TYPE, message_key: str):
+async def send_go_to_channel(update: Update, context: ContextTypes.DEFAULT_TYPE, message_key: str, next_state: int = None):
     """Sends a message with a 'Go to Channel' button."""
     lang_strings = s(context)
     query = update.callback_query
     
     keyboard = [
         [InlineKeyboardButton(lang_strings['go_to_channel_btn'], url=get_config('YOUR_CHANNEL_LINK'))],
-        [InlineKeyboardButton(lang_strings['btn_back'], callback_data="main_menu")]
     ]
+    if next_state:
+        keyboard.append([InlineKeyboardButton(lang_strings['btn_continue'], callback_data=f"continue_{next_state}")])
+    else:
+        keyboard.append([InlineKeyboardButton(lang_strings['btn_back'], callback_data="main_menu")])
+
     await query.edit_message_text(
         text=lang_strings[message_key],
         reply_markup=InlineKeyboardMarkup(keyboard),
         disable_web_page_preview=True
     )
-    return MAIN_MENU
+    return MAIN_MENU if not next_state else next_state
 
-async def send_go_to_link(update: Update, context: ContextTypes.DEFAULT_TYPE, message_key: str, button_key: str, config_link_key: str):
+async def send_go_to_link(update: Update, context: ContextTypes.DEFAULT_TYPE, message_key: str, button_key: str, config_link_key: str, next_state: int = None):
     """Sends a message with a 'Go to Link' button."""
     lang_strings = s(context)
     query = update.callback_query
     
     keyboard = [
         [InlineKeyboardButton(lang_strings[button_key], url=get_config(config_link_key))],
-        [InlineKeyboardButton(lang_strings['btn_back'], callback_data="main_menu")]
     ]
+    if next_state:
+        keyboard.append([InlineKeyboardButton(lang_strings['btn_continue'], callback_data=f"continue_{next_state}")])
+    else:
+        keyboard.append([InlineKeyboardButton(lang_strings['btn_back'], callback_data="main_menu")])
+
     await query.edit_message_text(
         text=lang_strings[message_key],
         reply_markup=InlineKeyboardMarkup(keyboard),
         disable_web_page_preview=True
     )
-    return MAIN_MENU
+    return MAIN_MENU if not next_state else next_state
 
 async def send_question(update: Update, context: ContextTypes.DEFAULT_TYPE, question_key: str, current_state: int, yes_text_key='btn_yes', no_text_key='btn_no'):
     """Sends a standard Yes/No question."""
@@ -349,7 +375,7 @@ async def send_b_options(update: Update, context: ContextTypes.DEFAULT_TYPE, mes
     )
     return current_state
 
-async def send_codes(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def send_codes(update: Update, context: ContextTypes.DEFAULT_TYPE, next_state: int) -> int:
     """Sends the list of island codes."""
     lang_strings = s(context)
     query = update.callback_query
@@ -358,11 +384,14 @@ async def send_codes(update: Update, context: ContextTypes.DEFAULT_TYPE):
     codes_text = "\n".join(f"`{code}`" for code in codes)
     text = f"{lang_strings['codes_message']}\n\n{codes_text}"
     
-    keyboard = [[InlineKeyboardButton(lang_strings['btn_back'], callback_data="main_menu")]]
+    keyboard = [
+        [InlineKeyboardButton(s(context)['btn_continue'], callback_data=f"continue_{next_state}")],
+        [InlineKeyboardButton(lang_strings['btn_back'], callback_data="main_menu")]
+    ]
     
     await query.answer()
     await query.edit_message_text(text=text, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
-    return MAIN_MENU
+    return next_state
 
 # === START & MAIN MENU ===
 
@@ -467,6 +496,12 @@ async def save_influencer(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     
     if next_state == MAIN_MENU:
         return await show_main_menu(update, context)
+    elif next_state == EP_END_FLOW:
+        await update.message.reply_text(s(context)['ep_end_flow'])
+        return await show_main_menu(update, context)
+    elif next_state == NP_END_FLOW:
+        await update.message.reply_text(s(context)['np_end_flow'])
+        return await show_main_menu(update, context)
     else:
         # This is for the Support flow, move to Q13
         return await send_question(update, context, 's_q13', S_Q13, 's_q13_yes', 's_q13_no')
@@ -486,6 +521,7 @@ async def save_username(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
         logger.info(f"*** SUPPORT REQUEST from user {user_id}: {username} ***")
         
         await update.message.reply_text(s(context)['prompt_thanks_username'])
+        await update.message.reply_text(s(context)['s_end_flow'])
         return await show_main_menu(update, context)
     else:
         await update.message.reply_text(s(context)['prompt_invalid_username'])
@@ -506,7 +542,7 @@ async def handle_yes(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         EP_Q3: lambda: send_question(update, context, 'ep_q4', EP_Q4),
         EP_Q4: lambda: send_question(update, context, 'ep_q5', EP_Q5),
         EP_Q5: lambda: send_question(update, context, 'ep_q6', EP_Q6, 'ep_q6_yes'),
-        EP_Q6: lambda: get_influencer(update, context, next_state=MAIN_MENU),
+        EP_Q6: lambda: get_influencer(update, context, next_state=EP_END_FLOW),
         
         # New Player
         NP_Q1: lambda: send_question(update, context, 'np_q2', NP_Q2),
@@ -518,9 +554,9 @@ async def handle_yes(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         NP_Q7: lambda: send_question(update, context, 'ep_q2', NP_Q8, 'ep_q2_yes'), # Q8 is same as EP Q2
         NP_Q8: lambda: send_question(update, context, 'ep_q3', NP_Q9), # Q9 is same as EP Q3
         NP_Q9: lambda: send_question(update, context, 'ep_q4', NP_Q10), # Q10 is same as EP Q4
-        NP_Q10: lambda: send_question(update, context, 'ep_q5', NP_Q11), # Q11 is same as EP Q5
+        NP_Q11: lambda: send_question(update, context, 'ep_q5', NP_Q11), # Q11 is same as EP Q5
         NP_Q11: lambda: send_question(update, context, 'ep_q6', NP_Q12, 'ep_q6_yes'), # Q12 is same as EP Q6
-        NP_Q12: lambda: get_influencer(update, context, next_state=MAIN_MENU),
+        NP_Q12: lambda: get_influencer(update, context, next_state=NP_END_FLOW),
 
         # Support
         S_Q1: lambda: send_question(update, context, 'np_q2', S_Q2),
@@ -570,7 +606,7 @@ async def handle_no(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         NP_Q7: lambda: send_b_options(update, context, 'ep_q1_no', 'ep_q1_b1', 'ep_q1_b2', NP_Q7),
         NP_Q8: lambda: send_b_options(update, context, 'ep_q2_no', 'ep_q2_b1', 'ep_q2_b2', NP_Q8),
         NP_Q9: lambda: send_b_options(update, context, 'ep_q3_no', 'btn_yes', 'btn_no', NP_Q9),
-        NP_Q10: lambda: send_b_options(update, context, 'ep_q4_no', 'btn_yes', 'ep_q4_b2', NP_Q10),
+        NP_Q10: lambda: send_b_options(update, context, 'ep_q4_no', 'ep_q4_b1_action', 'ep_q4_b2', NP_Q10), # Use B1 text
         NP_Q11: lambda: send_b_options(update, context, 'ep_q5_no', 'btn_yes', 'ep_q5_b2', NP_Q11),
         NP_Q12: lambda: send_go_to_channel(update, context, 'ep_q6_no_action'), # Same as EP_Q6
 
@@ -610,7 +646,7 @@ async def handle_b_option(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     B_MAP = {
         # Existing Player
         EP_Q1: {
-            'b1': lambda: send_codes(update, context),
+            'b1': lambda: send_codes(update, context, next_state=EP_Q1_CODES_DONE),
             'b2': lambda: send_question(update, context, 'ep_q2', EP_Q2, 'ep_q2_yes') # Go to Q2
         },
         EP_Q2: {
@@ -622,7 +658,7 @@ async def handle_b_option(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             'b2': lambda: send_go_to_channel(update, context, 'ep_q3_b2_action')
         },
         EP_Q4: {
-            'b1': lambda: send_question(update, context, 'ep_q5', EP_Q5), # B1 is "Yes" -> Go to Q5
+            'b1': lambda: send_go_to_channel(update, context, 'ep_q4_b1_action'),
             'b2': lambda: send_question(update, context, 'ep_q5', EP_Q5) # B2 is "No..." -> Go to Q5
         },
         EP_Q5: {
@@ -636,43 +672,43 @@ async def handle_b_option(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             'b2': lambda: send_go_to_channel(update, context, 'np_q1_b2_action')
         },
         NP_Q2: {
-            'b1': lambda: send_go_to_link(update, context, 'np_q2_b1_action', 'np_q2_b1_btn', 'XBOX_LINK'),
+            'b1': lambda: send_go_to_link(update, context, 'np_q2_b1_action', 'np_q2_b1_btn', 'XBOX_LINK', next_state=NP_Q3),
             'b2': lambda: send_question(update, context, 'np_q3', NP_Q3, 'np_q3_yes') # Go to Q3
         },
         NP_Q3: {
-            'b1': lambda: send_go_to_link(update, context, 'np_q3_b1_action', 'np_q3_b1_btn', 'EPIC_ACTIVATE_LINK'),
+            'b1': lambda: send_go_to_link(update, context, 'np_q3_b1_action', 'np_q3_b1_btn', 'EPIC_ACTIVATE_LINK', next_state=NP_Q4),
             'b2': lambda: send_go_to_channel(update, context, 'np_q3_b2_action')
         },
         NP_Q4: {
-            'b1': lambda: send_go_to_link(update, context, 'np_q4_b1_action', 'np_q4_b1_btn', 'EPIC_REGISTER_LINK'),
+            'b1': lambda: send_go_to_link(update, context, 'np_q4_b1_action', 'np_q4_b1_btn', 'EPIC_REGISTER_LINK', next_state=NP_Q5),
             'b2': lambda: send_go_to_channel(update, context, 'np_q4_b2_action')
         },
         NP_Q5: {
-            'b1': lambda: send_go_to_channel(update, context, 'np_q5_b1_action'),
+            'b1': lambda: send_go_to_channel(update, context, 'np_q5_b1_action', next_state=NP_Q6),
             'b2': lambda: send_question(update, context, 'np_q6', NP_Q6) # Go to Q6
         },
         NP_Q6: {
-            'b1': lambda: send_go_to_link(update, context, 'np_q6_b1_action', 'np_q6_b1_btn', 'XBOX_LINK'),
+            'b1': lambda: send_go_to_link(update, context, 'np_q6_b1_action', 'np_q6_b1_btn', 'XBOX_LINK', next_state=NP_Q7),
             'b2': lambda: send_go_to_channel(update, context, 'np_q6_b2_action')
         },
         NP_Q7: { # Same as EP_Q1
-            'b1': lambda: send_codes(update, context),
+            'b1': lambda: send_codes(update, context, next_state=NP_Q7_CODES_DONE),
             'b2': lambda: send_question(update, context, 'ep_q2', NP_Q8, 'ep_q2_yes') # Go to Q8
         },
         NP_Q8: { # Same as EP_Q2
-            'b1': lambda: send_go_to_channel(update, context, 'ep_q2_b1_action'),
+            'b1': lambda: send_go_to_channel(update, context, 'ep_q2_b1_action', next_state=NP_Q9),
             'b2': lambda: send_question(update, context, 'ep_q3', NP_Q9) # Go to Q9
         },
         NP_Q9: { # Same as EP_Q3
             'b1': lambda: send_question(update, context, 'ep_q4', NP_Q10), # B1 is "Yes" -> Go to Q10
             'b2': lambda: send_go_to_channel(update, context, 'ep_q3_b2_action')
         },
-        NP_Q10: { # Same as EP_Q4
-            'b1': lambda: send_question(update, context, 'ep_q5', NP_Q11), # B1 is "Yes" -> Go to Q11
+        NP_Q10: { # Use B1 text, not "Yes"
+            'b1': lambda: send_go_to_channel(update, context, 'ep_q4_b1_action', next_state=NP_Q11),
             'b2': lambda: send_question(update, context, 'ep_q5', NP_Q11) # B2 is "No..." -> Go to Q11
         },
         NP_Q11: { # Same as EP_Q5
-            'b1': lambda: send_go_to_channel(update, context, 'ep_q5_b1_action'),
+            'b1': lambda: send_go_to_channel(update, context, 'ep_q5_b1_action', next_state=NP_Q12),
             'b2': lambda: send_question(update, context, 'ep_q6', NP_Q12, 'ep_q6_yes') # Go to Q12
         },
 
@@ -682,31 +718,31 @@ async def handle_b_option(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             'b2': lambda: send_go_to_channel(update, context, 'np_q1_b2_action')
         },
         S_Q2: {
-            'b1': lambda: send_go_to_link(update, context, 'np_q2_b1_action', 'np_q2_b1_btn', 'XBOX_LINK'),
+            'b1': lambda: send_go_to_link(update, context, 'np_q2_b1_action', 'np_q2_b1_btn', 'XBOX_LINK', next_state=S_Q3),
             'b2': lambda: send_question(update, context, 'np_q3', S_Q3, 'np_q3_yes') # Go to Q3
         },
         S_Q3: {
-            'b1': lambda: send_go_to_link(update, context, 'np_q3_b1_action', 'np_q3_b1_btn', 'EPIC_ACTIVATE_LINK'),
+            'b1': lambda: send_go_to_link(update, context, 'np_q3_b1_action', 'np_q3_b1_btn', 'EPIC_ACTIVATE_LINK', next_state=S_Q4),
             'b2': lambda: send_go_to_channel(update, context, 'np_q3_b2_action')
         },
         S_Q4: {
-            'b1': lambda: send_go_to_link(update, context, 'np_q4_b1_action', 'np_q4_b1_btn', 'EPIC_REGISTER_LINK'),
+            'b1': lambda: send_go_to_link(update, context, 'np_q4_b1_action', 'np_q4_b1_btn', 'EPIC_REGISTER_LINK', next_state=S_Q5),
             'b2': lambda: send_go_to_channel(update, context, 'np_q4_b2_action')
         },
         S_Q5: {
-            'b1': lambda: send_go_to_channel(update, context, 'np_q5_b1_action'),
+            'b1': lambda: send_go_to_channel(update, context, 'np_q5_b1_action', next_state=S_Q6),
             'b2': lambda: send_question(update, context, 'np_q6', S_Q6) # Go to Q6
         },
         S_Q6: {
-            'b1': lambda: send_go_to_link(update, context, 'np_q6_b1_action', 'np_q6_b1_btn', 'XBOX_LINK'),
+            'b1': lambda: send_go_to_link(update, context, 'np_q6_b1_action', 'np_q6_b1_btn', 'XBOX_LINK', next_state=S_Q7),
             'b2': lambda: send_go_to_channel(update, context, 'np_q6_b2_action')
         },
         S_Q7: { # Same as EP_Q1
-            'b1': lambda: send_codes(update, context),
+            'b1': lambda: send_codes(update, context, next_state=S_Q7_CODES_DONE),
             'b2': lambda: send_question(update, context, 'ep_q2', S_Q8, 'ep_q2_yes') # Go to Q8
         },
         S_Q8: { # Same as EP_Q2
-            'b1': lambda: send_go_to_channel(update, context, 'ep_q2_b1_action'),
+            'b1': lambda: send_go_to_channel(update, context, 'ep_q2_b1_action', next_state=S_Q9),
             'b2': lambda: send_question(update, context, 'ep_q3', S_Q9) # Go to Q9
         },
         S_Q9: { # Same as EP_Q3
@@ -714,11 +750,11 @@ async def handle_b_option(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             'b2': lambda: send_go_to_channel(update, context, 'ep_q3_b2_action')
         },
         S_Q10: { # Special B2
-            'b1': lambda: send_question(update, context, 'ep_q5', S_Q11), # B1 is "Yes" -> Go to Q11
+            'b1': lambda: send_go_to_channel(update, context, 'ep_q4_b1_action', next_state=S_Q11),
             'b2': lambda: send_question(update, context, 'ep_q5', S_Q11) # B2 is "No..." -> Go to Q11
         },
         S_Q11: { # Same as EP_Q5
-            'b1': lambda: send_go_to_channel(update, context, 'ep_q5_b1_action'),
+            'b1': lambda: send_go_to_channel(update, context, 'ep_q5_b1_action', next_state=S_Q12),
             'b2': lambda: send_question(update, context, 's_q12', S_Q12, 's_q12_yes', 's_q12_no') # Go to Q12
         },
     }
@@ -770,6 +806,42 @@ def main() -> None:
         ] for state in question_states
     }
     
+    # Add handler for code "continue" button
+    state_handlers[EP_Q1_CODES_DONE] = [CallbackQueryHandler(lambda u, c: send_question(u, c, 'ep_q2', EP_Q2, 'ep_q2_yes'), pattern=f"^continue_{EP_Q1_CODES_DONE}$")]
+    
+    # Add handlers for all new NP "continue" buttons
+    NP_CONTINUE_MAP = {
+        NP_Q2_URL_DONE:   lambda u, c: send_question(u, c, 'np_q3', NP_Q3, 'np_q3_yes'),
+        NP_Q3_URL_DONE:   lambda u, c: send_question(u, c, 'np_q4', NP_Q4),
+        NP_Q4_URL_DONE:   lambda u, c: send_question(u, c, 'np_q5', NP_Q5),
+        NP_Q5_GOTO_DONE:  lambda u, c: send_question(u, c, 'np_q6', NP_Q6),
+        NP_Q6_URL_DONE:   lambda u, c: send_question(u, c, 'ep_q1', NP_Q7),
+        NP_Q7_CODES_DONE: lambda u, c: send_question(u, c, 'ep_q2', NP_Q8, 'ep_q2_yes'),
+        NP_Q8_GOTO_DONE:  lambda u, c: send_question(u, c, 'ep_q3', NP_Q9),
+        NP_Q10_GOTO_DONE: lambda u, c: send_question(u, c, 'ep_q5', NP_Q11),
+        NP_Q11_GOTO_DONE: lambda u, c: send_question(u, c, 'ep_q6', NP_Q12, 'ep_q6_yes'),
+    }
+    
+    for state, action in NP_CONTINUE_MAP.items():
+        state_handlers[state] = [CallbackQueryHandler(action, pattern=f"^continue_{state}$")]
+    
+    # Add handlers for all new S "continue" buttons
+    S_CONTINUE_MAP = {
+        S_Q2_URL_DONE:    lambda u, c: send_question(u, c, 'np_q3', S_Q3, 'np_q3_yes'),
+        S_Q3_URL_DONE:    lambda u, c: send_question(u, c, 'np_q4', S_Q4),
+        S_Q4_URL_DONE:    lambda u, c: send_question(u, c, 'np_q5', S_Q5),
+        S_Q5_GOTO_DONE:   lambda u, c: send_question(u, c, 'np_q6', S_Q6),
+        S_Q6_URL_DONE:    lambda u, c: send_question(u, c, 'ep_q1', S_Q7),
+        S_Q7_CODES_DONE:  lambda u, c: send_question(u, c, 'ep_q2', S_Q8, 'ep_q2_yes'),
+        S_Q8_GOTO_DONE:   lambda u, c: send_question(u, c, 'ep_q3', S_Q9),
+        S_Q10_GOTO_DONE:  lambda u, c: send_question(u, c, 'ep_q5', S_Q11),
+        S_Q11_GOTO_DONE:  lambda u, c: send_question(u, c, 's_q12', S_Q12, 's_q12_yes', 's_q12_no'),
+        S_Q12_ACTION_DONE: lambda u, c: send_question(u, c, 's_q13', S_Q13, 's_q13_yes', 's_q13_no'),
+    }
+
+    for state, action in S_CONTINUE_MAP.items():
+        state_handlers[state] = [CallbackQueryHandler(action, pattern=f"^continue_{state}$")]
+
     # Add text input handlers
     state_handlers[EP_GET_INFLUENCER] = [MessageHandler(filters.TEXT & ~filters.COMMAND, save_influencer)]
     state_handlers[NP_GET_INFLUENCER] = [MessageHandler(filters.TEXT & ~filters.COMMAND, save_influencer)]
@@ -788,10 +860,18 @@ def main() -> None:
     for state in [EP_Q6, NP_Q12, S_Q12]:
         state_handlers[state].append(
              CallbackQueryHandler(
-                 lambda u, c, s=state: get_influencer(u, c, next_state=(S_Q13 if s == S_Q12 else MAIN_MENU)),
+                 lambda u, c, s=state: get_influencer(u, c, next_state=(S_Q13 if s == S_Q12 else (EP_END_FLOW if s == EP_Q6 else NP_END_FLOW))),
                  pattern=f"^yes_{state}$"
              )
         )
+    # Add special handler for S_Q12_NO
+    state_handlers[S_Q12].append(
+        CallbackQueryHandler(
+            lambda u, c: send_go_to_channel(u, c, 's_q12_action', next_state=S_Q12_ACTION_DONE),
+            pattern=f"^no_{S_Q12}$"
+        )
+    )
+
     context.user_data['current_influencer_state'] = {
         EP_Q6: EP_GET_INFLUENCER,
         NP_Q12: NP_GET_INFLUENCER,
@@ -817,4 +897,8 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+
+
 
