@@ -18,14 +18,23 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # --- CONFIGURATION ---
-# !!! IMPORTANT: Fill these in with your information !!!
-YOUR_PLAYGROUND_NAME = "My Awesome Playground"  # The *exact name* to search for in Fortnite
-YOUR_PLAYGROUND_LINK = "https://your-fortnite-playground-link.com"  # The direct link for existing players
-HELPFUL_CHANNEL_LINK = "https://t.me/rejoinsnousetgagne" # Your main channel
+# !!! IMPORTANT: Fill in all your links and codes here !!!
+CONFIGURATION = {
+    'YOUR_CHANNEL_LINK': "https://t.me/rejoinsnousetgagne", # Your main channel
+    'XBOX_LINK': "https://www.xbox.com/fr-FR/play/games/fortnite/BT5P2X999VH2",
+    'EPIC_ACTIVATE_LINK': "http://epicgames.com/activate",
+    'EPIC_REGISTER_LINK': "https://www.epicgames.com/id/register", # Using register link, not just epicgames.com
+    'ISLAND_CODES': [
+        "CODE123",  # <-- Change this
+        "ISLAND456", # <-- Change this
+        "MAP789"    # <-- Change this
+    ]
+}
 # !!!!!!!!!!!!!!!!!!!!!
 
 
 # --- LANGUAGE STRINGS ---
+# All text from your script is here
 STRINGS = {
     'en': {
         'disclaimer': (
@@ -33,101 +42,108 @@ STRINGS = {
             "Epic Games or Fortnite. We will *never* ask for your password."
         ),
         'lang_prompt': "Please select your language:",
-        'welcome': (
-            "Welcome! You're diving into an immersive gaming adventure. "
-            "This bot will help you set up your account, join the game, and start playing."
-        ),
-        'main_menu_text': "Please choose an option from the menu below:",
-        # --- BUTTONS ---
-        'new_player_btn': "New player",
-        'existing_player_btn': "Existing player",
-        'helpful_channel_btn': "Full guide in channel",
-        'support_btn': "Support",
-        'back_btn': "⬅️ Back to Main Menu",
-        'yes_btn': "Yes",
-        'no_btn': "No",
-        
-        # --- SHARED MESSAGES ---
+        'welcome': "Welcome! Are you a New or Existing Player?",
+        'main_menu_text': "Please choose an option:",
+        'btn_existing': "Existing Player",
+        'btn_new': "New Player",
+        'btn_support': "Support/Troubleshooting",
+        'btn_back': "⬅️ Back to Main Menu",
+        'btn_yes': "Yes",
+        'btn_no': "No",
         'go_to_channel': "Please see our channel for instructions on this step.",
         'go_to_channel_btn': "Go to Channel",
-        'influencer_q': "Were you introduced to this game by an influencer?",
-        'influencer_prompt': "Please provide the influencer's name or @username:",
-        'influencer_thanks': "Thank you! We have noted the influencer's name.",
-        'influencer_no': "Got it. Please see our channel for the next instruction.",
-        'play_130_hours_q': "Did you start the game and play 130 hours for free this week?",
-        'play_130_hours_no': "You have to start the game and play every single day for free before progressing.\n\nAre you able to play at least 130 hours a week?",
-        'play_130_hours_no_b2': "Please see our channel for instructions on managing your time.",
-        'like_q': "With your account, will you click on the like button every single time before your 1 hour play session ended during your 130 hours of play this week?",
-        'like_no': "You have to click on the like button every single time before your 1 hour play session ended.\n\nDo you want our guidance on that?",
-        'like_no_b1': "Please see our channel for instruction 11.",
-        'like_no_b2_existing': "Okay. I will play and let you know in the support session later on.",
-        'like_no_b2_new': "Okay. I will play and let you know in the support session later on.",
-        'like_no_b2_support': "I have proof that I played 130 hours this week and I liked every single time, and I am wishing to share it with you guys.",
-        'save_favorite_q': "Did you save the reward Island to your favorites?",
-        'save_favorite_no': "You have to save the reward Island to your favorites and play.\n\nDo you want our guidance on that?",
-        'save_favorite_no_b1': "Please see our channel for instruction 12.",
-        'save_favorite_no_b2': "I have proof I saved the reward Island to my favorites and I actually play on it.",
-        'find_island_q': "Have you searched and found the reward Island?",
-        'find_island_no': "You have to search the reward Island in the search bar and just choose it.\n\nDo you want our guidance for that?",
-        'find_island_no_b1': "Here are the best codes to play. Just copy one of them and enter it on the search bar:\n\n`CODE123`\n`ISLAND456`\n`MAP789`",
-        'find_island_no_b2': "Okay, I already chose one code.",
-        'follow_setup_q': "Did you follow the full setup to be able to play with friends and progress together without any worries?",
-        'follow_setup_no': "You have to follow the exact setup. Do you need our guidance?",
-        'follow_setup_no_b1': "Please see our channel and look at instruction 9.",
-        'follow_setup_no_b2': "No, I finally fixed everything, I want to move to the next step.",
-        'use_vpn_q': "Did you use a VPN?",
-        'use_vpn_no': "Please download and use a VPN set to the USA before going any further to create all your authentic profiles. To play, you don't need to use it.\n\nDid you finally use a VPN?",
-        'use_vpn_no_b2': "Please see our channel for guidance on VPNs.",
-        'create_cloud_profile_q': "Did you already create a cloud gaming profile?",
-        'create_cloud_profile_no': "Please create a cloud gaming profile. Do you want our assistance?",
-        'create_cloud_profile_no_b1': "Use this link to get started:",
-        'create_cloud_profile_no_b1_btn': "Go to Xbox Cloud Gaming",
-        'create_cloud_profile_no_b2': "I already have one, I want the next step.",
-        'receive_epic_code_q': "Did you receive the code from Epic Games to activate your cloud gaming account?",
-        'receive_epic_code_no': "Please, you have to receive the code. Do you want our guidance to help you with that?",
-        'receive_epic_code_no_b1': "Use this link to activate:",
-        'receive_epic_code_no_b1_btn': "Go to EpicGames.com/activate",
-        'receive_epic_code_no_b2': "Please see our channel for help.",
-        'create_epic_profile_q': "Did you create your Epic Games profile?",
-        'create_epic_profile_no': "Please, you have to create your Epic Games profile. Do you need our guidance?",
-        'create_epic_profile_no_b1': "Use this link to create your profile:",
-        'create_epic_profile_no_b1_btn': "Go to EpicGames.com",
-        'create_epic_profile_no_b2': "Please see our channel for help.",
-        'create_shortcut_q': "Did you create a shortcut of the cloud gaming to play it like an installed app directly from your Homescreen?",
-        'create_shortcut_no': "You have to create a shortcut to play Fortnite from your homescreen. Do you want our guidance with that?",
-        'create_shortcut_no_b1': "Please see our channel for this guide.",
-        'create_shortcut_no_b2': "No, I finally created a shortcut.",
-        'launch_game_q': "Have you launched the game?",
-        'launch_game_no': "You have to launch the game. Do you need our guidance?",
-        'launch_game_no_b1': "Use this link to launch the game:",
-        'launch_game_no_b1_btn': "Launch Fortnite on Xbox Cloud",
-        'launch_game_no_b2': "Please see our channel for help.",
+        'codes_message': "Just copy one of them and enter it on the search bar:",
+        
+        # --- Existing Player ---
+        'ep_start': "Note: Since you're playing on the cloud, your session will last for 1 hour. The game will close, and you will have to launch it again to keep playing. You probably know this because you already followed all the instructions.",
+        'ep_q1': "Have you searched and found the reward Island?",
+        'ep_q1_no': "No, you have to search the reward Island in the search bar and just choose it. Do you want our guidance for that?",
+        'ep_q1_b1': "Yes, I want the best codes to play.",
+        'ep_q1_b2': "No, I already chose one code.",
+        'ep_q2': "Did you follow the full setup to be able to play with friends and progress together without any worries?",
+        'ep_q2_yes': "Yes, I'm ready for the next step.",
+        'ep_q2_no': "No, you have to follow the exact setup. Do you need our guidance?",
+        'ep_q2_b1': "Yes",
+        'ep_q2_b1_action': "Go to our channel and look at instruction 9.",
+        'ep_q2_b2': "No, I finally fixed everything, I want to move to the next step.",
+        'ep_q3': "Did you start the game and play 130 hours for free this week?",
+        'ep_q3_no': "No, you have to start the game and play every single day for free before aiming for the reward. Are you able to play at least 130 hours a week?",
+        'ep_q3_b2': "No",
+        'ep_q3_b2_action': "Go to our channel and look for instruction 10.",
+        'ep_q4': "With your existing account, will you click on the like button every single time before your 1-hour play session ended during your 130 hours of play this week?",
+        'ep_q4_no': "No, you have to click on the like button every single time before your 1-hour play session ended during your 130 hours a week. Do you want our guidance on that?",
+        'ep_q4_b1_action': "Go to our channel and look for instruction 11.",
+        'ep_q4_b2': "No, I will play and let you know in the support session later on.",
+        'ep_q5': "Did you save the reward Island to your favorites?",
+        'ep_q5_no': "No, you have to save the reward Island to your favorites and play. Do you want our guidance on that?",
+        'ep_q5_b1_action': "Go to our channel and look for instruction 12.",
+        'ep_q5_b2': "No, I have proof I saved the reward Island to my favorites and I actually play on it.",
+        'ep_q6': "Were you introduced to this game by an influencer?",
+        'ep_q6_yes': "Yes, provide the name please:",
+        'ep_q6_no_action': "Go to our channel and look for instruction 13.",
+        
+        # --- New Player ---
+        'np_start': "Note: You're diving into an immersive gaming adventure. This bot will help you set up your account, join the game, start playing, and progressing. Because you are playing on the cloud, your session will last for 1 hour. The game will close, and you will have to launch it again to keep playing.",
+        'np_q1': "Did you use a VPN?",
+        'np_q1_no': "No. Please download and use a VPN in the USA before going any further to create all your authentic profiles, but to play, you don’t use it. Did you finally use a VPN?",
+        'np_q1_b1': "If yes",
+        'np_q1_b2': "If no",
+        'np_q1_b2_action': "Please go to our channel for VPN recommendations.",
+        'np_q2': "Did you already create a cloud gaming profile?",
+        'np_q2_no': "If no, please create a cloud gaming profile. Do you want our assistance?",
+        'np_q2_b1_action': "Click here to create your profile:",
+        'np_q2_b1_btn': "Go to Xbox Cloud Gaming",
+        'np_q2_b2': "No, I already have one, I want the next step.",
+        'np_q3': "Did you receive the code from Epic Games to activate your cloud gaming account?",
+        'np_q3_yes': "Yes, I received the code, I want the next step.",
+        'np_q3_no': "Please, you have to receive the code. Do you want our guidance to help you with that?",
+        'np_q3_b1_action': "Click here to activate your account:",
+        'np_q3_b1_btn': "Go to epicgames.com/activate",
+        'np_q3_b2': "No",
+        'np_q3_b2_action': "Please go to our channel for help with this step.",
+        'np_q4': "Did you create your Epic Games profile?",
+        'np_q4_no': "No, please you have to create your Epic Games profile. Do you need our guidance?",
+        'np_q4_b1_action': "Click here to create your profile:",
+        'np_q4_b1_btn': "Go to Epic Games",
+        'np_q4_b2': "No",
+        'np_q4_b2_action': "Please go to our channel for help with this step.",
+        'np_q5': "Did you create a shortcut of the cloud gaming to play it like an installed app directly from your Homescreen?",
+        'np_q5_no': "No, you have to create a shortcut to play Fortnite from your homescreen. Do you want our guidance with that?",
+        'np_q5_b1': "Yes, I want to see it in the channel.",
+        'np_q5_b1_action': "Please see our channel for a guide on creating shortcuts.",
+        'np_q5_b2': "No, I finally created a shortcut.",
+        'np_q6': "Have you launched the game?",
+        'np_q6_no': "No, you have to launch the game. Do you need our guidance?",
+        'np_q6_b1_action': "Click here to launch the game:",
+        'np_q6_b1_btn': "Launch Fortnite",
+        'np_q6_b2_action': "Please go to our channel if you have trouble launching.",
+        'np_q7': "Have you searched and found the reward Island? (Same as EP Q1)",
+        'np_q8': "Did you follow the full setup to be able to play with friends and progress together without any worries? (Same as EP Q2)",
+        'np_q9': "Will you start the game and play 130 hours for free this week? (Same as EP Q3)",
+        'np_q10': "With your new account, will you click on the like button every single time before your 1-hour play session ended during your 130 hours of play this week? (Same as EP Q4)",
+        'np_q11': "Will you save the reward Island to your favorites? (Same as EP Q5)",
+        'np_q12': "Were you introduced to this game by an influencer? (Same as EP Q6)",
 
-        # --- NEW PLAYER ---
-        'new_player_start': (
-            "You're diving into an immersive gaming adventure. This bot will help you set up your account, join the game, start playing and progressing.\n\n"
-            "**Cloud Gaming Reminder:**\n"
-            "Your session lasts for 1 hour. The game will close, and you will have to launch it again to keep playing."
-        ),
+        # --- Support ---
+        's_start': "Note: In order to get in touch with us, you need to answer these questions so we can determine which stage of the process you’re at. If everything has been done correctly, you’ll be able to receive your reward.",
+        # Q1-Q11 are identical to New Player
+        's_q10_b2': "No, I have proof that I played 130 hours this week and I liked every single time, and I am wishing to share it with you guys.",
+        's_q12': "Were you introduced to this game by an influencer?",
+        's_q12_yes': "Yes, provide the name please:",
+        's_q12_no': "No",
+        's_q12_action': "Thank you. An expert will review your information. Please answer the final question.",
+        's_q13': "Make sure you completed every single step before sending us your @. Did you complete every single step and play at least 130 hours this week?",
+        's_q13_yes': "Yes, I did it and I will send you all the necessary screenshots.",
+        's_q13_no': "No",
+        's_q13_no_action': "Please complete all steps in the channel guide before requesting support.",
         
-        # --- EXISTING PLAYER ---
-        'existing_player_start': (
-            "Welcome back!\n\n"
-            "**Cloud Gaming Reminder:**\n"
-            "Your session lasts for 1 hour. The game will close, and you will have to launch it again to keep playing. "
-            "You probably know this since you already followed all the instructions."
-        ),
-        
-        # --- SUPPORT ---
-        'support_start': (
-            "In order to get in touch with us, you need to answer these questions so we can determine which stage of the process you’re at. "
-            "If everything has been done correctly, you’ll be able to receive your reward."
-        ),
-        'support_final_q': "Make sure you completed every single step before sending us your @. Did you complete every single step and play at least 130 hours this week?",
-        'support_final_yes': "Okay, please type your Telegram @username (like @myusername) and you will be contacted soon. By providing your @username, you consent to our support team contacting you directly.",
-        'support_final_no': "Please complete all steps in the channel guides first.",
-        'support_thanks': "Thank you! Your @username has been noted. We will get in touch with you as soon as possible.",
-        'invalid_username': "That doesn't look like a valid @username. Please start with '@' and try again, or type /cancel.",
+        # --- Text Prompts ---
+        'prompt_influencer': "Please type the name of the influencer who introduced you to the game and press send:",
+        'prompt_username': "Thank you. Please type your Telegram @username (e.g., @myusername) and an expert will review your case. By providing your @, you consent to being contacted.",
+        'prompt_thanks_influencer': "Thank you! We have recorded the influencer's name.",
+        'prompt_thanks_username': "Thank you! Your request has been submitted. An expert will get in touch with you soon.",
+        'prompt_invalid_username': "That doesn't look like a valid @username. Please start with '@' and try again, or type /cancel.",
+
     },
     'fr': {
         'disclaimer': (
@@ -135,139 +151,137 @@ STRINGS = {
             "Epic Games ou Fortnite. Nous ne vous demanderons *jamais* votre mot de passe."
         ),
         'lang_prompt': "Veuillez sélectionner votre langue :",
-        'welcome': (
-            "Bienvenue ! Tu plonges dans une aventure de jeu immersive. "
-            "Ce bot t'aidera à configurer ton compte, à rejoindre la partie et à commencer à jouer."
-        ),
-        'main_menu_text': "Veuillez choisir une option dans le menu ci-dessous :",
-        # --- BUTTONS ---
-        'new_player_btn': "Nouveau joueur",
-        'existing_player_btn': "Joueur existant",
-        'helpful_channel_btn': "Guide complet sur le canal",
-        'support_btn': "Support",
-        'back_btn': "⬅️ Retour au Menu Principal",
-        'yes_btn': "Oui",
-        'no_btn': "Non",
-        
-        # --- SHARED MESSAGES ---
+        'welcome': "Bienvenue ! Êtes-vous un Joueur Actuel ou un Nouveau Joueur ?",
+        'main_menu_text': "Veuillez choisir une option :",
+        'btn_existing': "Joueur Actuel",
+        'btn_new': "Nouveau Joueur",
+        'btn_support': "Support/Dépannage",
+        'btn_back': "⬅️ Retour au Menu Principal",
+        'btn_yes': "Oui",
+        'btn_no': "Non",
         'go_to_channel': "Veuillez consulter notre canal pour les instructions sur cette étape.",
         'go_to_channel_btn': "Aller au Canal",
-        'influencer_q': "Avez-vous été introduit à ce jeu par un influenceur ?",
-        'influencer_prompt': "Veuillez fournir le nom ou le @username de l'influenceur :",
-        'influencer_thanks': "Merci ! Nous avons noté le nom de l'influenceur.",
-        'influencer_no': "Compris. Veuillez consulter notre canal pour la prochaine instruction.",
-        'play_130_hours_q': "Avez-vous commencé le jeu et joué 130 heures gratuitement cette semaine ?",
-        'play_130_hours_no': "Vous devez commencer le jeu et jouer chaque jour gratuitement avant de progresser.\n\nÊtes-vous capable de jouer au moins 130 heures par semaine ?",
-        'play_130_hours_no_b2': "Veuillez consulter notre canal pour des instructions sur la gestion de votre temps.",
-        'like_q': "Avec votre compte, cliquerez-vous sur le bouton 'J'aime' à chaque fois avant la fin de votre session de jeu d'une heure pendant vos 130 heures de jeu cette semaine ?",
-        'like_no': "Vous devez cliquer sur le bouton 'J'aime' à chaque fois avant la fin de votre session d'une heure.\n\nVoulez-vous notre aide pour cela ?",
-        'like_no_b1': "Veuillez consulter notre canal pour l'instruction 11.",
-        'like_no_b2_existing': "D'accord. Je jouerai et vous le ferai savoir dans la session de support plus tard.",
-        'like_no_b2_new': "D'accord. Je jouerai et vous le ferai savoir dans la session de support plus tard.",
-        'like_no_b2_support': "J'ai la preuve que j'ai joué 130 heures cette semaine et que j'ai 'aimé' à chaque fois, et je souhaite la partager avec vous.",
-        'save_favorite_q': "Avez-vous sauvegardé l'île de récompense dans vos favoris ?",
-        'save_favorite_no': "Vous devez sauvegarder l'île de récompense dans vos favoris et y jouer.\n\nVoulez-vous notre aide pour cela ?",
-        'save_favorite_no_b1': "Veuillez consulter notre canal pour l'instruction 12.",
-        'save_favorite_no_b2': "J'ai la preuve que j'ai sauvegardé l'île de récompense dans mes favoris et que j'y joue actuellement.",
-        'find_island_q': "Avez-vous cherché et trouvé l'île de récompense ?",
-        'find_island_no': "Vous devez chercher l'île de récompense dans la barre de recherche et la choisir.\n\nVoulez-vous notre aide pour cela ?",
-        'find_island_no_b1': "Voici les meilleurs codes pour jouer. Copiez-en un et entrez-le dans la barre de recherche :\n\n`CODE123`\n`ISLAND456`\n`MAP789`",
-        'find_island_no_b2': "D'accord, j'ai déjà choisi un code.",
-        'follow_setup_q': "Avez-vous suivi la configuration complète pour pouvoir jouer avec des amis et progresser ensemble sans soucis ?",
-        'follow_setup_no': "Vous devez suivre la configuration exacte. Avez-vous besoin de notre aide ?",
-        'follow_setup_no_b1': "Veuillez consulter notre canal et regarder l'instruction 9.",
-        'follow_setup_no_b2': "Non, j'ai finalement tout arrangé, je veux passer à l'étape suivante.",
-        'use_vpn_q': "Avez-vous utilisé un VPN ?",
-        'use_vpn_no': "Veuillez télécharger et utiliser un VPN localisé aux États-Unis avant d'aller plus loin pour créer tous vos profils authentiques. Pour jouer, vous n'avez pas besoin de l'utiliser.\n\nAvez-vous finalement utilisé un VPN ?",
-        'use_vpn_no_b2': "Veuillez consulter notre canal pour obtenir de l'aide sur les VPN.",
-        'create_cloud_profile_q': "Avez-vous déjà créé un profil de cloud gaming ?",
-        'create_cloud_profile_no': "Veuillez créer un profil de cloud gaming. Voulez-vous notre assistance ?",
-        'create_cloud_profile_no_b1': "Utilisez ce lien pour commencer :",
-        'create_cloud_profile_no_b1_btn': "Aller sur Xbox Cloud Gaming",
-        'create_cloud_profile_no_b2': "J'en ai déjà un, je veux l'étape suivante.",
-        'receive_epic_code_q': "Avez-vous reçu le code d'Epic Games pour activer votre compte de cloud gaming ?",
-        'receive_epic_code_no': "S'il vous plaît, vous devez recevoir le code. Voulez-vous notre aide pour cela ?",
-        'receive_epic_code_no_b1': "Utilisez ce lien pour activer :",
-        'receive_epic_code_no_b1_btn': "Aller sur EpicGames.com/activate",
-        'receive_epic_code_no_b2': "Veuillez consulter notre canal pour obtenir de l'aide.",
-        'create_epic_profile_q': "Avez-vous créé votre profil Epic Games ?",
-        'create_epic_profile_no': "S'il vous plaît, vous devez créer votre profil Epic Games. Avez-vous besoin de notre aide ?",
-        'create_epic_profile_no_b1': "Utilisez ce lien pour créer votre profil :",
-        'create_epic_profile_no_b1_btn': "Aller sur EpicGames.com",
-        'create_epic_profile_no_b2': "Veuillez consulter notre canal pour obtenir de l'aide.",
-        'create_shortcut_q': "Avez-vous créé un raccourci du cloud gaming pour y jouer comme une application installée directement depuis votre écran d'accueil ?",
-        'create_shortcut_no': "Vous devez créer un raccourci pour jouer à Fortnite depuis votre écran d'accueil. Voulez-vous notre aide pour cela ?",
-        'create_shortcut_no_b1': "Veuillez consulter notre canal pour ce guide.",
-        'create_shortcut_no_b2': "Non, j'ai finalement créé un raccourci.",
-        'launch_game_q': "Avez-vous lancé le jeu ?",
-        'launch_game_no': "Vous devez lancer le jeu. Avez-vous besoin de notre aide ?",
-        'launch_game_no_b1': "Utilisez ce lien pour lancer le jeu :",
-        'launch_game_no_b1_btn': "Lancer Fortnite sur Xbox Cloud",
-        'launch_game_no_b2': "Veuillez consulter notre canal pour obtenir de l'aide.",
+        'codes_message': "Copiez-en un et entrez-le dans la barre de recherche :",
+        
+        # --- Existing Player ---
+        'ep_start': "Note : Puisque vous jouez sur le cloud, votre session durera 1 heure. Le jeu se fermera et vous devrez le relancer pour continuer à jouer. Vous le savez probablement déjà car vous avez suivi toutes les instructions.",
+        'ep_q1': "Avez-vous cherché et trouvé l'Île de Récompense ?",
+        'ep_q1_no': "Non, vous devez chercher l'Île de Récompense dans la barre de recherche et la choisir. Souhaitez-vous notre aide pour cela ?",
+        'ep_q1_b1': "Oui, je veux les meilleurs codes pour jouer.",
+        'ep_q1_b2': "Non, j'ai déjà choisi un code.",
+        'ep_q2': "Avez-vous suivi la configuration complète pour pouvoir jouer avec des amis et progresser ensemble sans soucis ?",
+        'ep_q2_yes': "Oui, je suis prêt pour la prochaine étape.",
+        'ep_q2_no': "Non, vous devez suivre la configuration exacte. Avez-vous besoin de notre aide ?",
+        'ep_q2_b1': "Oui",
+        'ep_q2_b1_action': "Allez sur notre canal et consultez l'instruction 9.",
+        'ep_q2_b2': "Non, j'ai finalement tout réglé, je veux passer à l'étape suivante.",
+        'ep_q3': "Avez-vous démarré le jeu et joué 130 heures gratuitement cette semaine ?",
+        'ep_q3_no': "Non, vous devez commencer le jeu et jouer tous les jours gratuitement avant de viser la progression. Êtes-vous capable de jouer au moins 130 heures par semaine ?",
+        'ep_q3_b2': "Non",
+        'ep_q3_b2_action': "Allez sur notre canal et consultez l'instruction 10.",
+        'ep_q4': "Avec votre compte existant, cliquerez-vous sur le bouton 'J'aime' à chaque fois avant la fin de votre session de jeu d'une heure durant vos 130 heures de jeu cette semaine ?",
+        'ep_q4_no': "Non, vous devez cliquer sur le bouton 'J'aime' à chaque fois avant la fin de votre session de jeu d'une heure durant vos 130 heures par semaine. Souhaitez-vous notre aide pour cela ?",
+        'ep_q4_b1_action': "Allez sur notre canal et consultez l'instruction 11.",
+        'ep_q4_b2': "Non, je vais jouer et je vous informerai lors de la session de support plus tard.",
+        'ep_q5': "Avez-vous enregistré l'Île de Récompense dans vos favoris ?",
+        'ep_q5_no': "Non, vous devez enregistrer l'Île de Récompense dans vos favoris et jouer. Souhaitez-vous notre aide pour cela ?",
+        'ep_q5_b1_action': "Allez sur notre canal et consultez l'instruction 12.",
+        'ep_q5_b2': "Non, j'ai la preuve que j'ai enregistré l'Île de Récompense dans mes favoris et que j'y joue réellement.",
+        'ep_q6': "Ce jeu vous a-t-il été présenté par un influenceur ?",
+        'ep_q6_yes': "Oui, veuillez indiquer le nom :",
+        'ep_q6_no_action': "Allez sur notre canal et consultez l'instruction 13.",
 
-        # --- NEW PLAYER ---
-        'new_player_start': (
-            "Tu plonges dans une aventure de jeu immersive. Ce bot t'aidera à configurer ton compte, à rejoindre la partie, à commencer à jouer et à progresser.\n\n"
-            "**Rappel Cloud Gaming :**\n"
-            "Votre session dure 1 heure. Le jeu se fermera, et vous devrez le relancer pour continuer à jouer."
-        ),
+        # --- New Player ---
+        'np_start': "Note : Tu plonges dans une aventure de jeu immersive. Ce bot t'aidera à configurer ton compte, à rejoindre la partie, à commencer à jouer et à progresser. Parce que tu joues sur le cloud, ta session durera 1 heure. Le jeu se fermera, et tu devras le relancer pour continuer à jouer.",
+        'np_q1': "Avez-vous utilisé un VPN ?",
+        'np_q1_no': "Non. Veuillez télécharger et utiliser un VPN aux USA avant d'aller plus loin pour créer tous vos profils authentiques, mais pour jouer, vous ne l'utilisez pas. Avez-vous finalement utilisé un VPN ?",
+        'np_q1_b1': "Si oui",
+        'np_q1_b2': "Si non",
+        'np_q1_b2_action': "Veuillez consulter notre canal pour des recommandations de VPN.",
+        'np_q2': "Avez-vous déjà créé un profil de jeu en cloud ?",
+        'np_q2_no': "Si non, veuillez créer un profil de jeu en cloud. Souhaitez-vous notre assistance ?",
+        'np_q2_b1_action': "Cliquez ici pour créer votre profil :",
+        'np_q2_b1_btn': "Aller sur Xbox Cloud Gaming",
+        'np_q2_b2': "Non, j'en ai déjà un, je veux l'étape suivante.",
+        'np_q3': "Avez-vous reçu le code d'Epic Games pour activer votre compte de jeu en cloud ?",
+        'np_q3_yes': "Oui, j'ai reçu le code, je veux l'étape suivante.",
+        'np_q3_no': "S'il vous plaît, vous devez recevoir le code. Souhaitez-vous notre aide pour cela ?",
+        'np_q3_b1_action': "Cliquez ici pour activer votre compte :",
+        'np_q3_b1_btn': "Aller sur epicgames.com/activate",
+        'np_q3_b2': "Non",
+        'np_q3_b2_action': "Veuillez consulter notre canal pour obtenir de l'aide.",
+        'np_q4': "Avez-vous créé votre profil Epic Games ?",
+        'np_q4_no': "Non, s'il vous plaît, vous devez créer votre profil Epic Games. Avez-vous besoin de notre aide ?",
+        'np_q4_b1_action': "Cliquez ici pour créer votre profil :",
+        'np_q4_b1_btn': "Aller sur Epic Games",
+        'np_q4_b2': "Non",
+        'np_q4_b2_action': "Veuillez consulter notre canal pour obtenir de l'aide.",
+        'np_q5': "Avez-vous créé un raccourci du jeu en cloud pour y jouer comme une application installée directement depuis votre écran d'accueil ?",
+        'np_q5_no': "Non, vous devez créer un raccourci pour jouer à Fortnite depuis votre écran d'accueil. Souhaitez-vous notre aide pour cela ?",
+        'np_q5_b1': "Oui, je veux le voir sur la chaîne.",
+        'np_q5_b1_action': "Veuillez consulter notre canal pour un guide sur les raccourcis.",
+        'np_q5_b2': "Non, j'ai finalement créé un raccourci.",
+        'np_q6': "Avez-vous lancé le jeu ?",
+        'np_q6_no': "Non, vous devez lancer le jeu. Avez-vous besoin de notre aide ?",
+        'np_q6_b1_action': "Cliquez ici pour lancer le jeu :",
+        'np_q6_b1_btn': "Lancer Fortnite",
+        'np_q6_b2_action': "Veuillez consulter notre canal si vous avez des problèmes.",
+        'np_q7': "Avez-vous cherché et trouvé l'Île de Récompense ? (Identique à EP Q1)",
+        'np_q8': "Avez-vous suivi la configuration complète pour pouvoir jouer avec des amis et progresser ensemble sans soucis ? (Identique à EP Q2)",
+        'np_q9': "Allez-vous démarrer le jeu et jouer 130 heures gratuitement cette semaine ? (Identique à EP Q3)",
+        'np_q10': "Avec votre nouveau compte, cliquerez-vous sur le bouton 'J'aime' à chaque fois avant la fin de votre session de jeu d'une heure durant vos 130 heures de jeu cette semaine ? (Identique à EP Q4)",
+        'np_q11': "Allez-vous enregistrer l'Île de Récompense dans vos favoris ? (Identique à EP Q5)",
+        'np_q12': "Ce jeu vous a-t-il été présenté par un influenceur ? (Identique à EP Q6)",
+
+        # --- Support ---
+        's_start': "Note : Pour nous contacter, vous devez répondre à ces questions afin que nous puissions déterminer à quelle étape du processus vous vous trouvez. Si tout a été fait correctement, vous pourrez recevoir votre récompense.",
+        # Q1-Q11 are identical to New Player
+        's_q10_b2': "Non, j'ai la preuve que j'ai joué 130 heures cette semaine et que j'ai aimé à chaque fois, et je souhaite la partager avec vous.",
+        's_q12': "Ce jeu vous a-t-il été présenté par un influenceur ?",
+        's_q12_yes': "Oui, veuillez indiquer le nom :",
+        's_q12_no': "Non",
+        's_q12_action': "Merci. Un expert examinera vos informations. Veuillez répondre à la dernière question.",
+        's_q13': "Assurez-vous d'avoir complété chaque étape avant de nous envoyer votre @. Avez-vous complété chaque étape et joué au moins 130 heures cette semaine ?",
+        's_q13_yes': "Oui, je l'ai fait et je vous enverrai toutes les captures d'écran nécessaires.",
+        's_q13_no': "Non",
+        's_q13_no_action': "Veuillez compléter toutes les étapes dans le guide du canal avant de demander du support.",
         
-        # --- EXISTING PLAYER ---
-        'existing_player_start': (
-            "Content de te revoir !\n\n"
-            "**Rappel Cloud Gaming :**\n"
-            "Votre session dure 1 heure. Le jeu se fermera, et vous devrez le relancer pour continuer à jouer. "
-            "Tu le sais probablement déjà puisque tu as suivi toutes les instructions."
-        ),
-        
-        # --- SUPPORT ---
-        'support_start': (
-            "Pour nous contacter, vous devez répondre à ces questions afin que nous puissions déterminer à quelle étape du processus vous vous trouvez. "
-            "Si tout a été fait correctement, vous pourrez recevoir votre récompense."
-        ),
-        'support_final_q': "Assurez-vous d'avoir complété chaque étape avant de nous envoyer votre @. Avez-vous complété chaque étape et joué au moins 130 heures cette semaine ?",
-        'support_final_yes': "D'accord, veuillez taper votre @nomdutilisateur Telegram (comme @monpseudo) et vous serez contacté bientôt. En fournissant votre @nomdutilisateur, vous consentez à ce que notre équipe d'assistance vous contacte directement.",
-        'support_final_no': "Veuillez d'abord compléter toutes les étapes dans les guides du canal.",
-        'support_thanks': "Merci ! Votre @nomdutilisateur a été noté. Nous vous contacterons dès que possible.",
-        'invalid_username': "Cela ne ressemble pas à un @nomdutilisateur valide. Veuillez commencer par '@' et réessayer, ou tapez /cancel.",
+        # --- Text Prompts ---
+        'prompt_influencer': "Veuillez taper le nom de l'influenceur qui vous a présenté le jeu et appuyez sur envoyer :",
+        'prompt_username': "Merci. Veuillez taper votre @nomdutilisateur Telegram (par ex., @monpseudo) et un expert examinera votre cas. En fournissant votre @, vous consentez à être contacté.",
+        'prompt_thanks_influencer': "Merci ! Nous avons enregistré le nom de l'influenceur.",
+        'prompt_thanks_username': "Merci ! Votre demande a été soumise. Un expert vous contactera bientôt.",
+        'prompt_invalid_username': "Cela ne ressemble pas à un @nomdutilisateur valide. Veuillez commencer par '@' et réessayer, ou tapez /cancel.",
     }
 }
 
-# --- Bot Links ---
-XBOX_LINK = "https://www.xbox.com/fr-FR/play/games/fortnite/BT5P2X999VH2"
-EPIC_ACTIVATE_LINK = "http://epicgames.com/activate"
-EPIC_REGISTER_LINK = "https://www.epicgames.com/id/register" # Changed from "epicgames.com" for better UX
-
 # Define states for ConversationHandler
-(SELECT_LANG, MAIN_MENU, 
- NEW_PLAYER_START, NP_Q1_VPN, NP_Q2_CLOUD, NP_Q3_EPIC_CODE, NP_Q4_EPIC_PROFILE, NP_Q5_SHORTCUT, 
- NP_Q6_LAUNCH, NP_Q7_FIND_ISLAND, NP_Q8_SETUP, NP_Q9_PLAY_130, NP_Q10_LIKE, NP_Q11_SAVE, NP_Q12_INFLUENCER,
- 
- EXISTING_PLAYER_START, EP_Q1_FIND_ISLAND, EP_Q2_SETUP, EP_Q3_PLAY_130, EP_Q4_LIKE, EP_Q5_SAVE, EP_Q6_INFLUENCER,
- 
- SUPPORT_START, S_Q1_VPN, S_Q2_CLOUD, S_Q3_EPIC_CODE, S_Q4_EPIC_PROFILE, S_Q5_SHORTCUT, 
- S_Q6_LAUNCH, S_Q7_FIND_ISLAND, S_Q8_SETUP, S_Q9_PLAY_130, S_Q10_LIKE, S_Q11_SAVE, S_Q12_INFLUENCER,
- S_Q13_FINAL, S_Q14_GET_USERNAME,
- 
- GET_INFLUENCER_NAME
+(
+    SELECT_LANG, MAIN_MENU,
+    EP_START, EP_Q1, EP_Q2, EP_Q3, EP_Q4, EP_Q5, EP_Q6, EP_GET_INFLUENCER,
+    NP_START, NP_Q1, NP_Q2, NP_Q3, NP_Q4, NP_Q5, NP_Q6, NP_Q7, NP_Q8, NP_Q9, NP_Q10, NP_Q11, NP_Q12, NP_GET_INFLUENCER,
+    S_START, S_Q1, S_Q2, S_Q3, S_Q4, S_Q5, S_Q6, S_Q7, S_Q8, S_Q9, S_Q10, S_Q11, S_Q12, S_Q13, S_GET_INFLUENCER, S_GET_USERNAME
 ) = range(37)
 
 
-# --- Helper Function to get strings ---
+# === HELPER FUNCTIONS ===
+
 def s(context: ContextTypes.DEFAULT_TYPE) -> dict:
     """Gets the language string dict for the user."""
     return STRINGS.get(context.user_data.get('lang', 'en'), STRINGS['en'])
 
-# --- Helper Function for "Go to Channel" ---
-async def go_to_channel(update: Update, context: ContextTypes.DEFAULT_TYPE, message_key: str) -> int:
+def get_config(key: str) -> str | list:
+    """Gets a value from the CONFIGURATION dict."""
+    return CONFIGURATION.get(key, f"ERROR_NO_CONFIG_FOR_{key}")
+
+async def send_go_to_channel(update: Update, context: ContextTypes.DEFAULT_TYPE, message_key: str):
     """Sends a message with a 'Go to Channel' button."""
     lang_strings = s(context)
     query = update.callback_query
-    await query.answer()
     
     keyboard = [
-        [InlineKeyboardButton(lang_strings['go_to_channel_btn'], url=HELPFUL_CHANNEL_LINK)],
-        [InlineKeyboardButton(lang_strings['back_btn'], callback_data="main_menu")]
+        [InlineKeyboardButton(lang_strings['go_to_channel_btn'], url=get_config('YOUR_CHANNEL_LINK'))],
+        [InlineKeyboardButton(lang_strings['btn_back'], callback_data="main_menu")]
     ]
     await query.edit_message_text(
         text=lang_strings[message_key],
@@ -276,68 +290,81 @@ async def go_to_channel(update: Update, context: ContextTypes.DEFAULT_TYPE, mess
     )
     return MAIN_MENU
 
-# --- Helper Function for Simple Yes/No Question ---
-async def ask_question(update: Update, context: ContextTypes.DEFAULT_TYPE, question_key: str, next_state_yes: int, next_state_no: int, back_state=MAIN_MENU) -> int:
-    """Sends a question with Yes/No buttons."""
+async def send_go_to_link(update: Update, context: ContextTypes.DEFAULT_TYPE, message_key: str, button_key: str, config_link_key: str):
+    """Sends a message with a 'Go to Link' button."""
     lang_strings = s(context)
     query = update.callback_query
     
     keyboard = [
-        [InlineKeyboardButton(lang_strings['yes_btn'], callback_data=f"yes_{next_state_yes}")],
-        [InlineKeyboardButton(lang_strings['no_btn'], callback_data=f"no_{next_state_no}")],
+        [InlineKeyboardButton(lang_strings[button_key], url=get_config(config_link_key))],
+        [InlineKeyboardButton(lang_strings['btn_back'], callback_data="main_menu")]
     ]
-    if back_state == MAIN_MENU:
-        keyboard.append([InlineKeyboardButton(lang_strings['back_btn'], callback_data="main_menu")])
+    await query.edit_message_text(
+        text=lang_strings[message_key],
+        reply_markup=InlineKeyboardMarkup(keyboard),
+        disable_web_page_preview=True
+    )
+    return MAIN_MENU
+
+async def send_question(update: Update, context: ContextTypes.DEFAULT_TYPE, question_key: str, current_state: int, yes_text_key='btn_yes', no_text_key='btn_no'):
+    """Sends a standard Yes/No question."""
+    lang_strings = s(context)
+    query = update.callback_query
+    
+    keyboard = [
+        [
+            InlineKeyboardButton(lang_strings[yes_text_key], callback_data=f"yes_{current_state}"),
+            InlineKeyboardButton(lang_strings[no_text_key], callback_data=f"no_{current_state}")
+        ],
+        [InlineKeyboardButton(lang_strings['btn_back'], callback_data="main_menu")]
+    ]
     
     text = lang_strings[question_key]
     
     if query:
         await query.answer()
-        await query.edit_message_text(
-            text=text,
-            reply_markup=InlineKeyboardMarkup(keyboard),
-            parse_mode='Markdown'
-        )
+        await query.edit_message_text(text=text, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
     else:
-        await update.message.reply_text(
-            text=text,
-            reply_markup=InlineKeyboardMarkup(keyboard),
-            parse_mode='Markdown'
-        )
-    return next_state_yes # The 'parent' state for this question
+        # This happens on /start
+        await update.message.reply_text(text=text, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
+        
+    return current_state
 
-# --- Helper Function for Yes/No with B1/B2 options ---
-async def ask_question_with_options(update: Update, context: ContextTypes.DEFAULT_TYPE, 
-                                    question_key: str, # e.g., 'use_vpn_q'
-                                    next_state_yes: int, # e.g., NP_Q2_CLOUD
-                                    no_message_key: str, # e.g., 'use_vpn_no'
-                                    b1_text_key: str, # e.g., 'yes_btn'
-                                    b1_callback: str, # e.g., 'yes_NP_Q2_CLOUD'
-                                    b2_text_key: str, # e.g., 'no_btn'
-                                    b2_callback: str, # e.g., 'no_go_to_channel'
-                                    current_state: int, # e.g., NP_Q1_VPN
-                                    back_state=MAIN_MENU) -> int:
-    """Handles the 'No' branch with two new options (B1, B2)."""
+async def send_b_options(update: Update, context: ContextTypes.DEFAULT_TYPE, message_key: str, b1_key: str, b2_key: str, current_state: int):
+    """Sends the B-1 and B-2 options for a 'No' answer."""
     lang_strings = s(context)
     query = update.callback_query
-    await query.answer()
-
+    
     keyboard = [
-        [InlineKeyboardButton(lang_strings[b1_text_key], callback_data=b1_callback)],
-        [InlineKeyboardButton(lang_strings[b2_text_key], callback_data=b2_callback)],
+        [InlineKeyboardButton(lang_strings[b1_key], callback_data=f"b1_{current_state}")],
+        [InlineKeyboardButton(lang_strings[b2_key], callback_data=f"b2_{current_state}")],
+        [InlineKeyboardButton(lang_strings['btn_back'], callback_data="main_menu")]
     ]
-    if back_state == MAIN_MENU:
-        keyboard.append([InlineKeyboardButton(lang_strings['back_btn'], callback_data="main_menu")])
-
+    
+    await query.answer()
     await query.edit_message_text(
-        text=lang_strings[no_message_key],
+        text=lang_strings[message_key],
         reply_markup=InlineKeyboardMarkup(keyboard),
         parse_mode='Markdown'
     )
-    return current_state # Stay in the same state, waiting for B1 or B2 response
+    return current_state
 
+async def send_codes(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Sends the list of island codes."""
+    lang_strings = s(context)
+    query = update.callback_query
+    
+    codes = get_config('ISLAND_CODES')
+    codes_text = "\n".join(f"`{code}`" for code in codes)
+    text = f"{lang_strings['codes_message']}\n\n{codes_text}"
+    
+    keyboard = [[InlineKeyboardButton(lang_strings['btn_back'], callback_data="main_menu")]]
+    
+    await query.answer()
+    await query.edit_message_text(text=text, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
+    return MAIN_MENU
 
-# --- Main Bot Flow ---
+# === START & MAIN MENU ===
 
 async def start_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Entry point: Shows disclaimer and asks for language."""
@@ -350,47 +377,36 @@ async def start_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     )
     keyboard = [
         [
-            InlineKeyboardButton("English 🇬🇧", callback_data="en"),
-            InlineKeyboardButton("Français 🇫🇷", callback_data="fr"),
+            InlineKeyboardButton("English 🇬🇧", callback_data="lang_en"),
+            InlineKeyboardButton("Français 🇫🇷", callback_data="lang_fr"),
         ]
     ]
     if update.message:
-        await update.message.reply_text(
-            text=text, 
-            reply_markup=InlineKeyboardMarkup(keyboard), 
-            disable_web_page_preview=True,
-            parse_mode='Markdown'
-        )
+        await update.message.reply_text(text=text, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
     elif update.callback_query:
         await update.callback_query.answer()
-        await update.callback_query.edit_message_text(
-            text=text, 
-            reply_markup=InlineKeyboardMarkup(keyboard), 
-            disable_web_page_preview=True,
-            parse_mode='Markdown'
-        )
+        await update.callback_query.edit_message_text(text=text, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
+        
     return SELECT_LANG
 
 async def set_language(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Stores the chosen language and shows the main menu."""
     query = update.callback_query
-    lang = query.data
-    context.user_data['lang'] = lang
-    return await show_main_menu(update, context)
+    context.user_data['lang'] = query.data.split('_')[1] # 'lang_en' -> 'en'
+    return await show_main_menu(update, context, welcome=True)
 
-async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE, message: str = None) -> int:
-    """Shows the main menu buttons."""
+async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE, welcome: bool = False) -> int:
+    """Shows the main 3-button menu."""
     lang_strings = s(context)
     query = update.callback_query
     
     keyboard = [
-        [InlineKeyboardButton(lang_strings['new_player_btn'], callback_data="new_player_start")],
-        [InlineKeyboardButton(lang_strings['existing_player_btn'], callback_data="existing_player_start")],
-        [InlineKeyboardButton(lang_strings['support_btn'], callback_data="support_start")],
-        [InlineKeyboardButton(lang_strings['helpful_channel_btn'], url=HELPFUL_CHANNEL_LINK)],
+        [InlineKeyboardButton(lang_strings['btn_existing'], callback_data="existing_start")],
+        [InlineKeyboardButton(lang_strings['btn_new'], callback_data="new_start")],
+        [InlineKeyboardButton(lang_strings['btn_support'], callback_data="support_start")],
     ]
     
-    text = message or lang_strings['main_menu_text']
+    text = lang_strings['welcome'] if welcome else lang_strings['main_menu_text']
     
     if query:
         await query.answer()
@@ -400,304 +416,329 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE, mes
             parse_mode='Markdown'
         )
     else:
+        # Failsafe for /cancel or other returns
         await update.message.reply_text(
             text=text,
             reply_markup=InlineKeyboardMarkup(keyboard),
             parse_mode='Markdown'
         )
+        
     return MAIN_MENU
 
-# --- Button Handlers for Main Menu ---
-async def new_player_flow(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Start of the New Player flow. Asks Q1."""
+# === FLOW ENTRY POINTS ===
+
+async def existing_player_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     query = update.callback_query
     await query.answer()
-    await query.edit_message_text(text=s(context)['new_player_start'], parse_mode='Markdown')
-    # --- FIX: Pass the *next* state for "Yes" ---
-    return await ask_question(update, context, 'use_vpn_q', NP_Q2_CLOUD, NP_Q1_VPN)
+    await query.edit_message_text(text=s(context)['ep_start'], parse_mode='Markdown')
+    return await send_question(update, context, 'ep_q1', EP_Q1)
 
-async def existing_player_flow(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Start of the Existing Player flow. Asks Q1."""
+async def new_player_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     query = update.callback_query
     await query.answer()
-    await query.edit_message_text(text=s(context)['existing_player_start'], parse_mode='Markdown')
-    # --- FIX: Pass the *next* state for "Yes" ---
-    return await ask_question(update, context, 'find_island_q', EP_Q2_SETUP, EP_Q1_FIND_ISLAND)
+    await query.edit_message_text(text=s(context)['np_start'], parse_mode='Markdown')
+    return await send_question(update, context, 'np_q1', NP_Q1)
 
-async def support_flow(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Start of the Support flow. Asks Q1."""
+async def support_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     query = update.callback_query
     await query.answer()
-    await query.edit_message_text(text=s(context)['support_start'], parse_mode='Markdown')
-    # --- FIX: Pass the *next* state for "Yes" ---
-    return await ask_question(update, context, 'use_vpn_q', S_Q2_CLOUD, S_Q1_VPN)
+    await query.edit_message_text(text=s(context)['s_start'], parse_mode='Markdown')
+    return await send_question(update, context, 'np_q1', S_Q1) # Support Q1 is same as NP Q1
 
-# --- Fallback for "No" answers with B1/B2 options ---
-async def handle_no_option(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Generic handler for 'No' -> B1/B2 questions."""
-    query = update.callback_query
-    await query.answer()
-    
-    # Extract data from callback_data, e.g., "no_NP_Q1_VPN"
-    _, state_name = query.data.split('_', 1)
-    
-    # This is a big mapping of states to their corresponding "No" branch options
-    # Format: STATE_NAME: (question_key, next_state_yes, no_message_key, b1_text, b1_cb, b2_text, b2_cb, current_state)
-    NO_BRANCH_MAP = {
-        'NP_Q1_VPN': ('use_vpn_q', NP_Q2_CLOUD, 'use_vpn_no', 'yes_btn', f'yes_{NP_Q2_CLOUD}', 'no_btn', 'no_go_to_channel_vpn', NP_Q1_VPN),
-        'NP_Q2_CLOUD': ('create_cloud_profile_q', NP_Q3_EPIC_CODE, 'create_cloud_profile_no', 'yes_btn', 'no_link_xbox', 'create_cloud_profile_no_b2', f'yes_{NP_Q3_EPIC_CODE}', NP_Q2_CLOUD),
-        'NP_Q3_EPIC_CODE': ('receive_epic_code_q', NP_Q4_EPIC_PROFILE, 'receive_epic_code_no', 'yes_btn', 'no_link_epic_activate', 'no_btn', 'no_go_to_channel_epic_code', NP_Q3_EPIC_CODE),
-        'NP_Q4_EPIC_PROFILE': ('create_epic_profile_q', NP_Q5_SHORTCUT, 'create_epic_profile_no', 'yes_btn', 'no_link_epic_register', 'no_btn', 'no_go_to_channel_epic_profile', NP_Q4_EPIC_PROFILE),
-        'NP_Q5_SHORTCUT': ('create_shortcut_q', NP_Q6_LAUNCH, 'create_shortcut_no', 'create_shortcut_no_b1', 'no_go_to_channel_shortcut', 'create_shortcut_no_b2', f'yes_{NP_Q6_LAUNCH}', NP_Q5_SHORTCUT),
-        'NP_Q6_LAUNCH': ('launch_game_q', NP_Q7_FIND_ISLAND, 'launch_game_no', 'yes_btn', 'no_link_xbox', 'no_btn', 'no_go_to_channel_launch', NP_Q6_LAUNCH),
-        'NP_Q7_FIND_ISLAND': ('find_island_q', NP_Q8_SETUP, 'find_island_no', 'find_island_no_b1', 'no_print_codes', 'find_island_no_b2', f'yes_{NP_Q8_SETUP}', NP_Q7_FIND_ISLAND),
-        'NP_Q8_SETUP': ('follow_setup_q', NP_Q9_PLAY_130, 'follow_setup_no', 'yes_btn', 'no_go_to_channel_setup9', 'follow_setup_no_b2', f'yes_{NP_Q9_PLAY_130}', NP_Q8_SETUP),
-        'NP_Q9_PLAY_130': ('play_130_hours_q', NP_Q10_LIKE, 'play_130_hours_no', 'yes_btn', f'yes_{NP_Q10_LIKE}', 'no_btn', 'no_go_to_channel_play130', NP_Q9_PLAY_130),
-        'NP_Q10_LIKE': ('like_q', NP_Q11_SAVE, 'like_no', 'yes_btn', 'no_go_to_channel_like11', 'like_no_b2_new', f'yes_{NP_Q11_SAVE}', NP_Q10_LIKE),
-        'NP_Q11_SAVE': ('save_favorite_q', NP_Q12_INFLUENCER, 'save_favorite_no', 'yes_btn', 'no_go_to_channel_save12', 'save_favorite_no_b2', f'yes_{NP_Q12_INFLUENCER}', NP_Q11_SAVE),
+# === TEXT INPUT HANDLERS ===
 
-        'EP_Q1_FIND_ISLAND': ('find_island_q', EP_Q2_SETUP, 'find_island_no', 'find_island_no_b1', 'no_print_codes', 'find_island_no_b2', f'yes_{EP_Q2_SETUP}', EP_Q1_FIND_ISLAND),
-        'EP_Q2_SETUP': ('follow_setup_q', EP_Q3_PLAY_130, 'follow_setup_no', 'yes_btn', 'no_go_to_channel_setup9', 'follow_setup_no_b2', f'yes_{EP_Q3_PLAY_130}', EP_Q2_SETUP),
-        'EP_Q3_PLAY_130': ('play_130_hours_q', EP_Q4_LIKE, 'play_130_hours_no', 'yes_btn', f'yes_{EP_Q4_LIKE}', 'no_btn', 'no_go_to_channel_play130', EP_Q3_PLAY_130),
-        'EP_Q4_LIKE': ('like_q', EP_Q5_SAVE, 'like_no', 'yes_btn', 'no_go_to_channel_like11', 'like_no_b2_existing', f'yes_{EP_Q5_SAVE}', EP_Q4_LIKE),
-        'EP_Q5_SAVE': ('save_favorite_q', EP_Q6_INFLUENCER, 'save_favorite_no', 'yes_btn', 'no_go_to_channel_save12', 'save_favorite_no_b2', f'yes_{EP_Q6_INFLUENCER}', EP_Q5_SAVE),
-
-        'S_Q1_VPN': ('use_vpn_q', S_Q2_CLOUD, 'use_vpn_no', 'yes_btn', f'yes_{S_Q2_CLOUD}', 'no_btn', 'no_go_to_channel_vpn', S_Q1_VPN),
-        'S_Q2_CLOUD': ('create_cloud_profile_q', S_Q3_EPIC_CODE, 'create_cloud_profile_no', 'yes_btn', 'no_link_xbox', 'create_cloud_profile_no_b2', f'yes_{S_Q3_EPIC_CODE}', S_Q2_CLOUD),
-        'S_Q3_EPIC_CODE': ('receive_epic_code_q', S_Q4_EPIC_PROFILE, 'receive_epic_code_no', 'yes_btn', 'no_link_epic_activate', 'no_btn', 'no_go_to_channel_epic_code', S_Q3_EPIC_CODE),
-        'S_Q4_EPIC_PROFILE': ('create_epic_profile_q', S_Q5_SHORTCUT, 'create_epic_profile_no', 'yes_btn', 'no_link_epic_register', 'no_btn', 'no_go_to_channel_epic_profile', S_Q4_EPIC_PROFILE),
-        'S_Q5_SHORTCUT': ('create_shortcut_q', S_Q6_LAUNCH, 'create_shortcut_no', 'create_shortcut_no_b1', 'no_go_to_channel_shortcut', 'create_shortcut_no_b2', f'yes_{S_Q6_LAUNCH}', S_Q5_SHORTCUT),
-        'S_Q6_LAUNCH': ('launch_game_q', S_Q7_FIND_ISLAND, 'launch_game_no', 'yes_btn', 'no_link_xbox', 'no_btn', 'no_go_to_channel_launch', S_Q6_LAUNCH),
-        'S_Q7_FIND_ISLAND': ('find_island_q', S_Q8_SETUP, 'find_island_no', 'find_island_no_b1', 'no_print_codes', 'find_island_no_b2', f'yes_{S_Q8_SETUP}', S_Q7_FIND_ISLAND),
-        'S_Q8_SETUP': ('follow_setup_q', S_Q9_PLAY_130, 'follow_setup_no', 'yes_btn', 'no_go_to_channel_setup9', 'follow_setup_no_b2', f'yes_{S_Q9_PLAY_130}', S_Q8_SETUP),
-        'S_Q9_PLAY_130': ('play_130_hours_q', S_Q10_LIKE, 'play_130_hours_no', 'yes_btn', f'yes_{S_Q10_LIKE}', 'no_btn', 'no_go_to_channel_play130', S_Q9_PLAY_130),
-        'S_Q10_LIKE': ('like_q', S_Q11_SAVE, 'like_no', 'yes_btn', 'no_go_to_channel_like11', 'like_no_b2_support', f'yes_{S_Q11_SAVE}', S_Q10_LIKE),
-        'S_Q11_SAVE': ('save_favorite_q', S_Q12_INFLUENCER, 'save_favorite_no', 'yes_btn', 'no_go_to_channel_save12', 'save_favorite_no_b2', f'yes_{S_Q12_INFLUENCER}', S_Q11_SAVE),
-    }
-
-    if state_name not in NO_BRANCH_MAP:
-        logger.warning(f"No_option handler called with unknown state: {state_name}")
-        return MAIN_MENU
-
-    (question_key, next_state_yes, no_message_key, b1_text, b1_cb, b2_text, b2_cb, current_state) = NO_BRANCH_MAP[state_name]
-    
-    return await ask_question_with_options(
-        update, context,
-        question_key, next_state_yes, no_message_key,
-        b1_text_key=b1_text, b1_callback=b1_cb,
-        b2_text_key=b2_text, b2_callback=b2_cb,
-        current_state=current_state
-    )
-
-# --- Handlers for "No" B1/B2 options ---
-
-async def handle_no_go_to_channel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Handles B2 'No' options that redirect to the channel."""
-    query = update.callback_query
-    await query.answer()
-    
-    # Extract the specific message key from callback, e.g., "no_go_to_channel_vpn"
-    key_suffix = query.data.split('_')[-1]
-    
-    # Map of suffixes to message keys
-    CHANNEL_MESSAGE_MAP = {
-        'vpn': 'use_vpn_no_b2',
-        'epic_code': 'receive_epic_code_no_b2',
-        'epic_profile': 'create_epic_profile_no_b2',
-        'shortcut': 'create_shortcut_no_b1',
-        'launch': 'launch_game_no_b2',
-        'setup9': 'follow_setup_no_b1',
-        'play130': 'play_130_hours_no_b2',
-        'like11': 'like_no_b1',
-        'save12': 'save_favorite_no_b1',
-        'influencer13': 'influencer_no', # From Support Q12
-    }
-    
-    message_key = CHANNEL_MESSAGE_MAP.get(key_suffix, 'go_to_channel') # Default message
-    return await go_to_channel(update, context, message_key)
-
-async def handle_no_link(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Handles B1 'Yes' options that provide a link."""
-    lang_strings = s(context)
-    query = update.callback_query
-    await query.answer()
-    
-    # Extract link type from callback, e.g., "no_link_xbox"
-    link_type = query.data.split('_')[-1]
-    
-    LINK_MAP = {
-        'xbox': (lang_strings['create_cloud_profile_no_b1'], lang_strings['create_cloud_profile_no_b1_btn'], XBOX_LINK),
-        'epic_activate': (lang_strings['receive_epic_code_no_b1'], lang_strings['receive_epic_code_no_b1_btn'], EPIC_ACTIVATE_LINK),
-        'epic_register': (lang_strings['create_epic_profile_no_b1'], lang_strings['create_epic_profile_no_b1_btn'], EPIC_REGISTER_LINK),
-    }
-    
-    if link_type not in LINK_MAP:
-        logger.warning(f"No_link handler called with unknown link type: {link_type}")
-        return MAIN_MENU
-
-    text, btn_text, url = LINK_MAP[link_type]
-    
-    keyboard = [
-        [InlineKeyboardButton(btn_text, url=url)],
-        [InlineKeyboardButton(lang_strings['back_btn'], callback_data="main_menu")]
-    ]
-    await query.edit_message_text(
-        text=text,
-        reply_markup=InlineKeyboardMarkup(keyboard),
-        disable_web_page_preview=True
-    )
-    return MAIN_MENU
-
-async def handle_no_print_codes(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Handles B1 'Yes I want codes'."""
-    lang_strings = s(context)
-    query = update.callback_query
-    await query.answer()
-    
-    keyboard = [[InlineKeyboardButton(lang_strings['back_btn'], callback_data="main_menu")]]
-    await query.edit_message_text(
-        text=lang_strings['find_island_no_b1'],
-        reply_markup=InlineKeyboardMarkup(keyboard),
-        parse_mode='Markdown'
-    )
-    return MAIN_MENU
-
-# --- Handler for "Yes" answers ---
-async def handle_yes_option(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Generic handler for 'Yes' answers, moves to the next question."""
-    query = update.callback_query
-    await query.answer()
-    
-    # Extract data from callback_data, e.g., "yes_NP_Q2_CLOUD"
-    _, state_name = query.data.split('_', 1)
-
-    # Map of "Yes" callbacks to the *next* question to ask
-    # Format: CURRENT_STATE_NAME: (next_question_key, next_state_yes, next_state_no)
-    # --- FIX: Corrected the entire map's logic ---
-    YES_BRANCH_MAP = {
-        # --- New Player Flow ---
-        'NP_Q2_CLOUD': ('create_cloud_profile_q', NP_Q3_EPIC_CODE, NP_Q2_CLOUD),
-        'NP_Q3_EPIC_CODE': ('receive_epic_code_q', NP_Q4_EPIC_PROFILE, NP_Q3_EPIC_CODE),
-        'NP_Q4_EPIC_PROFILE': ('create_epic_profile_q', NP_Q5_SHORTCUT, NP_Q4_EPIC_PROFILE),
-        'NP_Q5_SHORTCUT': ('create_shortcut_q', NP_Q6_LAUNCH, NP_Q5_SHORTCUT),
-        'NP_Q6_LAUNCH': ('launch_game_q', NP_Q7_FIND_ISLAND, NP_Q6_LAUNCH),
-        'NP_Q7_FIND_ISLAND': ('find_island_q', NP_Q8_SETUP, NP_Q7_FIND_ISLAND),
-        'NP_Q8_SETUP': ('follow_setup_q', NP_Q9_PLAY_130, NP_Q8_SETUP),
-        'NP_Q9_PLAY_130': ('play_130_hours_q', NP_Q10_LIKE, NP_Q9_PLAY_130),
-        'NP_Q10_LIKE': ('like_q', NP_Q11_SAVE, NP_Q10_LIKE),
-        'NP_Q11_SAVE': ('save_favorite_q', NP_Q12_INFLUENCER, NP_Q11_SAVE),
-        'NP_Q12_INFLUENCER': ('influencer_q', GET_INFLUENCER_NAME, NP_Q12_INFLUENCER),
-
-        # --- Existing Player Flow ---
-        'EP_Q2_SETUP': ('follow_setup_q', EP_Q3_PLAY_130, EP_Q2_SETUP),
-        'EP_Q3_PLAY_130': ('play_130_hours_q', EP_Q4_LIKE, EP_Q3_PLAY_130),
-        'EP_Q4_LIKE': ('like_q', EP_Q5_SAVE, EP_Q4_LIKE),
-        'EP_Q5_SAVE': ('save_favorite_q', EP_Q6_INFLUENCER, EP_Q5_SAVE),
-        'EP_Q6_INFLUENCER': ('influencer_q', GET_INFLUENCER_NAME, EP_Q6_INFLUENCER),
-
-        # --- Support Flow ---
-        'S_Q2_CLOUD': ('create_cloud_profile_q', S_Q3_EPIC_CODE, S_Q2_CLOUD),
-        'S_Q3_EPIC_CODE': ('receive_epic_code_q', S_Q4_EPIC_PROFILE, S_Q3_EPIC_CODE),
-        'S_Q4_EPIC_PROFILE': ('create_epic_profile_q', S_Q5_SHORTCUT, S_Q4_EPIC_PROFILE),
-        'S_Q5_SHORTCUT': ('create_shortcut_q', S_Q6_LAUNCH, S_Q5_SHORTCUT),
-        'S_Q6_LAUNCH': ('launch_game_q', S_Q7_FIND_ISLAND, S_Q6_LAUNCH),
-        'S_Q7_FIND_ISLAND': ('find_island_q', S_Q8_SETUP, S_Q7_FIND_ISLAND),
-        'S_Q8_SETUP': ('follow_setup_q', S_Q9_PLAY_130, S_Q8_SETUP),
-        'S_Q9_PLAY_1S0': ('play_130_hours_q', S_Q10_LIKE, S_Q9_PLAY_130),
-        'S_Q10_LIKE': ('like_q', S_Q11_SAVE, S_Q10_LIKE),
-        'S_Q11_SAVE': ('save_favorite_q', S_Q12_INFLUENCER, S_Q11_SAVE),
-        'S_Q12_INFLUENCER': ('influencer_q', GET_INFLUENCER_NAME, S_Q12_INFLUENCER),
-        'S_Q13_FINAL': ('support_final_q', S_Q14_GET_USERNAME, S_Q13_FINAL),
-    }
-
-    if state_name not in YES_BRANCH_MAP:
-        logger.warning(f"Yes_option handler called with unknown state: {state_name}")
-        return MAIN_MENU
-
-    (question_key, next_state_yes, next_state_no) = YES_BRANCH_MAP[state_name]
-    
-    # Special case for influencer question
-    if question_key == 'influencer_q':
-        context.user_data['next_state_after_influencer'] = "main_menu" # NP/EP flows end
-        if state_name.startswith('S_'):
-             context.user_data['next_state_after_influencer'] = f'yes_{S_Q13_FINAL}' # Support flow continues
-        return await ask_question(update, context, 'influencer_q', GET_INFLUENCER_NAME, next_state_no) # 'No' for influencer is custom
-
-    # Special case for support final question
-    if question_key == 'support_final_q':
-        return await ask_question(update, context, 'support_final_q', S_Q14_GET_USERNAME, S_Q13_FINAL) # 'No' for final q is custom
-
-    return await ask_question(update, context, question_key, next_state_yes, next_state_no)
-
-
-# --- Special "No" Handlers ---
-
-async def handle_influencer_no(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Handles 'No' to the influencer question."""
-    query = update.callback_query
-    await query.answer()
-    
-    # Support flow has a different "No" answer
-    if query.data.startswith('no_S_'):
-        return await go_to_channel(update, context, 'influencer_no') # S_Q12_INFLUENCER
-    
-    # NP and EP flows just go back to main menu
-    return await show_main_menu(update, context, message=s(context)['influencer_no'])
-
-async def handle_support_final_no(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Handles 'No' to the final support question."""
-    return await go_to_channel(update, context, 'support_final_no') # S_Q13_FINAL
-
-
-# --- Text Input Handlers ---
-
-async def get_influencer_name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def get_influencer(update: Update, context: ContextTypes.DEFAULT_TYPE, next_state: int) -> int:
     """Asks for influencer name."""
     query = update.callback_query
     await query.answer()
-    await query.edit_message_text(text=s(context)['influencer_prompt'])
-    return GET_INFLUENCER_NAME
+    context.user_data['next_state_after_influencer'] = next_state
+    await query.edit_message_text(text=s(context)['prompt_influencer'])
+    return context.user_data['current_influencer_state'] # e.g., EP_GET_INFLUENCER
 
-async def save_influencer_name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Saves influencer name and moves to next step."""
+async def save_influencer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Saves influencer name and moves to the next logical step."""
     influencer_name = update.message.text
     user_id = update.message.from_user.id
     logger.info(f"User {user_id} submitted influencer name: {influencer_name}")
     
-    await update.message.reply_text(s(context)['influencer_thanks'])
+    await update.message.reply_text(s(context)['prompt_thanks_influencer'])
     
-    # Go to the next step we saved earlier
-    next_step_callback = context.user_data.pop('next_state_after_influencer', 'main_menu')
+    next_state = context.user_data.pop('next_state_after_influencer', MAIN_MENU)
     
-    if next_step_callback == 'main_menu':
+    if next_state == MAIN_MENU:
         return await show_main_menu(update, context)
     else:
-        # This is for the Support flow
-        return await handle_yes_option(update, context) # Manually trigger next question
+        # This is for the Support flow, move to Q13
+        return await send_question(update, context, 's_q13', S_Q13, 's_q13_yes', 's_q13_no')
 
-async def get_support_username(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def get_username(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Asks for @username."""
     query = update.callback_query
     await query.answer()
-    await query.edit_message_text(text=s(context)['support_final_yes'], parse_mode='Markdown')
-    return S_Q14_GET_USERNAME
+    await query.edit_message_text(text=s(context)['prompt_username'])
+    return S_GET_USERNAME
 
-async def save_support_username(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def save_username(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Saves @username and logs it."""
     username = update.message.text
     if username.startswith('@') and len(username) > 2:
         user_id = update.message.from_user.id
         logger.info(f"*** SUPPORT REQUEST from user {user_id}: {username} ***")
         
-        await update.message.reply_text(s(context)['support_thanks'])
+        await update.message.reply_text(s(context)['prompt_thanks_username'])
         return await show_main_menu(update, context)
     else:
-        await update.message.reply_text(s(context)['invalid_username'])
-        return S_Q14_GET_USERNAME # Stay in this state
+        await update.message.reply_text(s(context)['prompt_invalid_username'])
+        return S_GET_USERNAME # Stay in this state
 
-async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Cancels any active conversation and returns to main menu."""
-    await update.message.reply_text("Action cancelled.", reply_markup=ReplyKeyboardRemove())
+# === GENERIC BUTTON HANDLERS ===
+
+async def handle_yes(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Handles all 'Yes' button presses."""
+    query = update.callback_query
+    state = int(query.data.split('_')[1]) # 'yes_10' -> 10 (which is EP_Q1)
+
+    # Map of "Yes" press in STATE -> action (ask next question)
+    YES_MAP = {
+        # Existing Player
+        EP_Q1: lambda: send_question(update, context, 'ep_q2', EP_Q2, 'ep_q2_yes'),
+        EP_Q2: lambda: send_question(update, context, 'ep_q3', EP_Q3),
+        EP_Q3: lambda: send_question(update, context, 'ep_q4', EP_Q4),
+        EP_Q4: lambda: send_question(update, context, 'ep_q5', EP_Q5),
+        EP_Q5: lambda: send_question(update, context, 'ep_q6', EP_Q6, 'ep_q6_yes'),
+        EP_Q6: lambda: get_influencer(update, context, next_state=MAIN_MENU),
+        
+        # New Player
+        NP_Q1: lambda: send_question(update, context, 'np_q2', NP_Q2),
+        NP_Q2: lambda: send_question(update, context, 'np_q3', NP_Q3, 'np_q3_yes'),
+        NP_Q3: lambda: send_question(update, context, 'np_q4', NP_Q4),
+        NP_Q4: lambda: send_question(update, context, 'np_q5', NP_Q5),
+        NP_Q5: lambda: send_question(update, context, 'np_q6', NP_Q6),
+        NP_Q6: lambda: send_question(update, context, 'ep_q1', NP_Q7), # Q7 is same as EP Q1
+        NP_Q7: lambda: send_question(update, context, 'ep_q2', NP_Q8, 'ep_q2_yes'), # Q8 is same as EP Q2
+        NP_Q8: lambda: send_question(update, context, 'ep_q3', NP_Q9), # Q9 is same as EP Q3
+        NP_Q9: lambda: send_question(update, context, 'ep_q4', NP_Q10), # Q10 is same as EP Q4
+        NP_Q10: lambda: send_question(update, context, 'ep_q5', NP_Q11), # Q11 is same as EP Q5
+        NP_Q11: lambda: send_question(update, context, 'ep_q6', NP_Q12, 'ep_q6_yes'), # Q12 is same as EP Q6
+        NP_Q12: lambda: get_influencer(update, context, next_state=MAIN_MENU),
+
+        # Support
+        S_Q1: lambda: send_question(update, context, 'np_q2', S_Q2),
+        S_Q2: lambda: send_question(update, context, 'np_q3', S_Q3, 'np_q3_yes'),
+        S_Q3: lambda: send_question(update, context, 'np_q4', S_Q4),
+        S_Q4: lambda: send_question(update, context, 'np_q5', S_Q5),
+        S_Q5: lambda: send_question(update, context, 'np_q6', S_Q6),
+        S_Q6: lambda: send_question(update, context, 'ep_q1', S_Q7), # Q7
+        S_Q7: lambda: send_question(update, context, 'ep_q2', S_Q8, 'ep_q2_yes'), # Q8
+        S_Q8: lambda: send_question(update, context, 'ep_q3', S_Q9), # Q9
+        S_Q9: lambda: send_question(update, context, 'ep_q4', S_Q10), # Q10
+        S_Q10: lambda: send_question(update, context, 'ep_q5', S_Q11), # Q11
+        S_Q11: lambda: send_question(update, context, 's_q12', S_Q12, 's_q12_yes', 's_q12_no'), # Q12
+        S_Q12: lambda: get_influencer(update, context, next_state=S_Q13), # 'Yes' -> Get Influencer
+        S_Q13: lambda: get_username(update, context), # 'Yes' -> Get Username
+    }
+    
+    action = YES_MAP.get(state)
+    if action:
+        return await action()
+    
+    logger.warning(f"No 'YES' action defined for state {state}")
+    return MAIN_MENU
+
+async def handle_no(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Handles all 'No' button presses."""
+    query = update.callback_query
+    state = int(query.data.split('_')[1]) # 'no_10' -> 10 (which is EP_Q1)
+
+    # Map of "No" press in STATE -> action (show B1/B2 options)
+    NO_MAP = {
+        # Existing Player
+        EP_Q1: lambda: send_b_options(update, context, 'ep_q1_no', 'ep_q1_b1', 'ep_q1_b2', EP_Q1),
+        EP_Q2: lambda: send_b_options(update, context, 'ep_q2_no', 'ep_q2_b1', 'ep_q2_b2', EP_Q2),
+        EP_Q3: lambda: send_b_options(update, context, 'ep_q3_no', 'btn_yes', 'ep_q3_b2', EP_Q3), # B1 is "Yes"
+        EP_Q4: lambda: send_b_options(update, context, 'ep_q4_no', 'btn_yes', 'ep_q4_b2', EP_Q4), # B1 is "Yes"
+        EP_Q5: lambda: send_b_options(update, context, 'ep_q5_no', 'btn_yes', 'ep_q5_b2', EP_Q5), # B1 is "Yes"
+        EP_Q6: lambda: send_go_to_channel(update, context, 'ep_q6_no_action'),
+
+        # New Player
+        NP_Q1: lambda: send_b_options(update, context, 'np_q1_no', 'np_q1_b1', 'np_q1_b2', NP_Q1),
+        NP_Q2: lambda: send_b_options(update, context, 'np_q2_no', 'btn_yes', 'np_q2_b2', NP_Q2),
+        NP_Q3: lambda: send_b_options(update, context, 'np_q3_no', 'btn_yes', 'np_q3_b2', NP_Q3),
+        NP_Q4: lambda: send_b_options(update, context, 'np_q4_no', 'btn_yes', 'np_q4_b2', NP_Q4),
+        NP_Q5: lambda: send_b_options(update, context, 'np_q5_no', 'np_q5_b1', 'np_q5_b2', NP_Q5),
+        NP_Q6: lambda: send_b_options(update, context, 'np_q6_no', 'btn_yes', 'btn_no', NP_Q6),
+        NP_Q7: lambda: send_b_options(update, context, 'ep_q1_no', 'ep_q1_b1', 'ep_q1_b2', NP_Q7),
+        NP_Q8: lambda: send_b_options(update, context, 'ep_q2_no', 'ep_q2_b1', 'ep_q2_b2', NP_Q8),
+        NP_Q9: lambda: send_b_options(update, context, 'ep_q3_no', 'btn_yes', 'btn_no', NP_Q9),
+        NP_Q10: lambda: send_b_options(update, context, 'ep_q4_no', 'btn_yes', 'ep_q4_b2', NP_Q10),
+        NP_Q11: lambda: send_b_options(update, context, 'ep_q5_no', 'btn_yes', 'ep_q5_b2', NP_Q11),
+        NP_Q12: lambda: send_go_to_channel(update, context, 'ep_q6_no_action'), # Same as EP_Q6
+
+        # Support
+        S_Q1: lambda: send_b_options(update, context, 'np_q1_no', 'np_q1_b1', 'np_q1_b2', S_Q1),
+        S_Q2: lambda: send_b_options(update, context, 'np_q2_no', 'btn_yes', 'np_q2_b2', S_Q2),
+        S_Q3: lambda: send_b_options(update, context, 'np_q3_no', 'btn_yes', 'np_q3_b2', S_Q3),
+        S_Q4: lambda: send_b_options(update, context, 'np_q4_no', 'btn_yes', 'np_q4_b2', S_Q4),
+        S_Q5: lambda: send_b_options(update, context, 'np_q5_no', 'np_q5_b1', 'np_q5_b2', S_Q5),
+        S_Q6: lambda: send_b_options(update, context, 'np_q6_no', 'btn_yes', 'btn_no', S_Q6),
+        S_Q7: lambda: send_b_options(update, context, 'ep_q1_no', 'ep_q1_b1', 'ep_q1_b2', S_Q7),
+        S_Q8: lambda: send_b_options(update, context, 'ep_q2_no', 'ep_q2_b1', 'ep_q2_b2', S_Q8),
+        S_Q9: lambda: send_b_options(update, context, 'ep_q3_no', 'btn_yes', 'btn_no', S_Q9),
+        S_Q10: lambda: send_b_options(update, context, 'ep_q4_no', 'btn_yes', 's_q10_b2', S_Q10), # Special B2
+        S_Q11: lambda: send_b_options(update, context, 'ep_q5_no', 'btn_yes', 'ep_q5_b2', S_Q11),
+        S_Q12: lambda: send_question(update, context, 's_q13', S_Q13, 's_q13_yes', 's_q13_no'), # 'No' -> Skip influencer, go to Q13
+        S_Q13: lambda: send_go_to_channel(update, context, 's_q13_no_action'),
+    }
+
+    action = NO_MAP.get(state)
+    if action:
+        return await action()
+    
+    logger.warning(f"No 'NO' action defined for state {state}")
+    return MAIN_MENU
+
+async def handle_b_option(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Handles all B-1 and B-2 button presses."""
+    query = update.callback_query
+    parts = query.data.split('_') # 'b1_10'
+    b_option = parts[0] # 'b1' or 'b2'
+    state = int(parts[1]) # 10 (which is EP_Q1)
+
+    # Map of "B" press in STATE -> action
+    # We only need to map B1 and B2 presses. "Yes" B-options are handled by handle_yes
+    # e.g., Q3 B-1 is 'btn_yes', so its callback is 'yes_EP_Q4', handled by handle_yes
+    B_MAP = {
+        # Existing Player
+        EP_Q1: {
+            'b1': lambda: send_codes(update, context),
+            'b2': lambda: send_question(update, context, 'ep_q2', EP_Q2, 'ep_q2_yes') # Go to Q2
+        },
+        EP_Q2: {
+            'b1': lambda: send_go_to_channel(update, context, 'ep_q2_b1_action'),
+            'b2': lambda: send_question(update, context, 'ep_q3', EP_Q3) # Go to Q3
+        },
+        EP_Q3: {
+            'b1': lambda: send_question(update, context, 'ep_q4', EP_Q4), # B1 is "Yes" -> Go to Q4
+            'b2': lambda: send_go_to_channel(update, context, 'ep_q3_b2_action')
+        },
+        EP_Q4: {
+            'b1': lambda: send_question(update, context, 'ep_q5', EP_Q5), # B1 is "Yes" -> Go to Q5
+            'b2': lambda: send_question(update, context, 'ep_q5', EP_Q5) # B2 is "No..." -> Go to Q5
+        },
+        EP_Q5: {
+            'b1': lambda: send_go_to_channel(update, context, 'ep_q5_b1_action'),
+            'b2': lambda: send_question(update, context, 'ep_q6', EP_Q6, 'ep_q6_yes') # Go to Q6
+        },
+        
+        # New Player
+        NP_Q1: {
+            'b1': lambda: send_question(update, context, 'np_q2', NP_Q2), # B1 is "Yes" -> Go to Q2
+            'b2': lambda: send_go_to_channel(update, context, 'np_q1_b2_action')
+        },
+        NP_Q2: {
+            'b1': lambda: send_go_to_link(update, context, 'np_q2_b1_action', 'np_q2_b1_btn', 'XBOX_LINK'),
+            'b2': lambda: send_question(update, context, 'np_q3', NP_Q3, 'np_q3_yes') # Go to Q3
+        },
+        NP_Q3: {
+            'b1': lambda: send_go_to_link(update, context, 'np_q3_b1_action', 'np_q3_b1_btn', 'EPIC_ACTIVATE_LINK'),
+            'b2': lambda: send_go_to_channel(update, context, 'np_q3_b2_action')
+        },
+        NP_Q4: {
+            'b1': lambda: send_go_to_link(update, context, 'np_q4_b1_action', 'np_q4_b1_btn', 'EPIC_REGISTER_LINK'),
+            'b2': lambda: send_go_to_channel(update, context, 'np_q4_b2_action')
+        },
+        NP_Q5: {
+            'b1': lambda: send_go_to_channel(update, context, 'np_q5_b1_action'),
+            'b2': lambda: send_question(update, context, 'np_q6', NP_Q6) # Go to Q6
+        },
+        NP_Q6: {
+            'b1': lambda: send_go_to_link(update, context, 'np_q6_b1_action', 'np_q6_b1_btn', 'XBOX_LINK'),
+            'b2': lambda: send_go_to_channel(update, context, 'np_q6_b2_action')
+        },
+        NP_Q7: { # Same as EP_Q1
+            'b1': lambda: send_codes(update, context),
+            'b2': lambda: send_question(update, context, 'ep_q2', NP_Q8, 'ep_q2_yes') # Go to Q8
+        },
+        NP_Q8: { # Same as EP_Q2
+            'b1': lambda: send_go_to_channel(update, context, 'ep_q2_b1_action'),
+            'b2': lambda: send_question(update, context, 'ep_q3', NP_Q9) # Go to Q9
+        },
+        NP_Q9: { # Same as EP_Q3
+            'b1': lambda: send_question(update, context, 'ep_q4', NP_Q10), # B1 is "Yes" -> Go to Q10
+            'b2': lambda: send_go_to_channel(update, context, 'ep_q3_b2_action')
+        },
+        NP_Q10: { # Same as EP_Q4
+            'b1': lambda: send_question(update, context, 'ep_q5', NP_Q11), # B1 is "Yes" -> Go to Q11
+            'b2': lambda: send_question(update, context, 'ep_q5', NP_Q11) # B2 is "No..." -> Go to Q11
+        },
+        NP_Q11: { # Same as EP_Q5
+            'b1': lambda: send_go_to_channel(update, context, 'ep_q5_b1_action'),
+            'b2': lambda: send_question(update, context, 'ep_q6', NP_Q12, 'ep_q6_yes') # Go to Q12
+        },
+
+        # Support (Mostly same as New Player)
+        S_Q1: {
+            'b1': lambda: send_question(update, context, 'np_q2', S_Q2), # B1 is "Yes" -> Go to Q2
+            'b2': lambda: send_go_to_channel(update, context, 'np_q1_b2_action')
+        },
+        S_Q2: {
+            'b1': lambda: send_go_to_link(update, context, 'np_q2_b1_action', 'np_q2_b1_btn', 'XBOX_LINK'),
+            'b2': lambda: send_question(update, context, 'np_q3', S_Q3, 'np_q3_yes') # Go to Q3
+        },
+        S_Q3: {
+            'b1': lambda: send_go_to_link(update, context, 'np_q3_b1_action', 'np_q3_b1_btn', 'EPIC_ACTIVATE_LINK'),
+            'b2': lambda: send_go_to_channel(update, context, 'np_q3_b2_action')
+        },
+        S_Q4: {
+            'b1': lambda: send_go_to_link(update, context, 'np_q4_b1_action', 'np_q4_b1_btn', 'EPIC_REGISTER_LINK'),
+            'b2': lambda: send_go_to_channel(update, context, 'np_q4_b2_action')
+        },
+        S_Q5: {
+            'b1': lambda: send_go_to_channel(update, context, 'np_q5_b1_action'),
+            'b2': lambda: send_question(update, context, 'np_q6', S_Q6) # Go to Q6
+        },
+        S_Q6: {
+            'b1': lambda: send_go_to_link(update, context, 'np_q6_b1_action', 'np_q6_b1_btn', 'XBOX_LINK'),
+            'b2': lambda: send_go_to_channel(update, context, 'np_q6_b2_action')
+        },
+        S_Q7: { # Same as EP_Q1
+            'b1': lambda: send_codes(update, context),
+            'b2': lambda: send_question(update, context, 'ep_q2', S_Q8, 'ep_q2_yes') # Go to Q8
+        },
+        S_Q8: { # Same as EP_Q2
+            'b1': lambda: send_go_to_channel(update, context, 'ep_q2_b1_action'),
+            'b2': lambda: send_question(update, context, 'ep_q3', S_Q9) # Go to Q9
+        },
+        S_Q9: { # Same as EP_Q3
+            'b1': lambda: send_question(update, context, 'ep_q4', S_Q10), # B1 is "Yes" -> Go to Q10
+            'b2': lambda: send_go_to_channel(update, context, 'ep_q3_b2_action')
+        },
+        S_Q10: { # Special B2
+            'b1': lambda: send_question(update, context, 'ep_q5', S_Q11), # B1 is "Yes" -> Go to Q11
+            'b2': lambda: send_question(update, context, 'ep_q5', S_Q11) # B2 is "No..." -> Go to Q11
+        },
+        S_Q11: { # Same as EP_Q5
+            'b1': lambda: send_go_to_channel(update, context, 'ep_q5_b1_action'),
+            'b2': lambda: send_question(update, context, 's_q12', S_Q12, 's_q12_yes', 's_q12_no') # Go to Q12
+        },
+    }
+
+    action = B_MAP.get(state, {}).get(b_option)
+    if action:
+        return await action()
+    
+    logger.warning(f"No 'B_OPTION' action defined for state {state} and option {b_option}")
+    return MAIN_MENU
+
+# === FALLBACKS ===
+
+async def cancel(update: Update, context: ContextTypes.DEFAULT_ENTRY_POINT) -> int:
+    """Cancels and ends the conversation."""
+    lang_strings = s(context)
+    if update.message:
+        await update.message.reply_text(
+            lang_strings['main_menu_text'], reply_markup=ReplyKeyboardRemove()
+        )
     return await show_main_menu(update, context)
 
 
@@ -711,104 +752,62 @@ def main() -> None:
     application = Application.builder().token(token).build()
 
     # --- This is the main conversation handler ---
+    
+    # Define all question states
+    question_states = [
+        EP_Q1, EP_Q2, EP_Q3, EP_Q4, EP_Q5, EP_Q6,
+        NP_Q1, NP_Q2, NP_Q3, NP_Q4, NP_Q5, NP_Q6, NP_Q7, NP_Q8, NP_Q9, NP_Q10, NP_Q11, NP_Q12,
+        S_Q1, S_Q2, S_Q3, S_Q4, S_Q5, S_Q6, S_Q7, S_Q8, S_Q9, S_Q10, S_Q11, S_Q12, S_Q13
+    ]
+    
+    # Create handlers for all question states
+    state_handlers = {
+        state: [
+            CallbackQueryHandler(handle_yes, pattern=f"^yes_{state}$"),
+            CallbackQueryHandler(handle_no, pattern=f"^no_{state}$"),
+            CallbackQueryHandler(handle_b_option, pattern=f"^b1_{state}$"),
+            CallbackQueryHandler(handle_b_option, pattern=f"^b2_{state}$"),
+        ] for state in question_states
+    }
+    
+    # Add text input handlers
+    state_handlers[EP_GET_INFLUENCER] = [MessageHandler(filters.TEXT & ~filters.COMMAND, save_influencer)]
+    state_handlers[NP_GET_INFLUENCER] = [MessageHandler(filters.TEXT & ~filters.COMMAND, save_influencer)]
+    state_handlers[S_GET_INFLUENCER] = [MessageHandler(filters.TEXT & ~filters.COMMAND, save_influencer)]
+    state_handlers[S_GET_USERNAME] = [MessageHandler(filters.TEXT & ~filters.COMMAND, save_username)]
+
+    # Add special states
+    state_handlers[SELECT_LANG] = [CallbackQueryHandler(set_language, pattern="^lang_(en|fr)$")]
+    state_handlers[MAIN_MENU] = [
+        CallbackQueryHandler(existing_player_start, pattern="^existing_start$"),
+        CallbackQueryHandler(new_player_start, pattern="^new_start$"),
+        CallbackQueryHandler(support_start, pattern="^support_start$"),
+    ]
+    
+    # Store the influencer states for the helper function
+    for state in [EP_Q6, NP_Q12, S_Q12]:
+        state_handlers[state].append(
+             CallbackQueryHandler(
+                 lambda u, c, s=state: get_influencer(u, c, next_state=(S_Q13 if s == S_Q12 else MAIN_MENU)),
+                 pattern=f"^yes_{state}$"
+             )
+        )
+    context.user_data['current_influencer_state'] = {
+        EP_Q6: EP_GET_INFLUENCER,
+        NP_Q12: NP_GET_INFLUENCER,
+        S_Q12: S_GET_INFLUENCER,
+    }
+
+
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start_cmd)],
-        states={
-            SELECT_LANG: [
-                CallbackQueryHandler(set_language, pattern="^(en|fr)$")
-            ],
-            MAIN_MENU: [
-                CallbackQueryHandler(new_player_flow, pattern="^new_player_start$"),
-                CallbackQueryHandler(existing_player_flow, pattern="^existing_player_start$"),
-                CallbackQueryHandler(support_flow, pattern="^support_start$"),
-            ],
-            
-            # --- Auto-generated "Yes" handlers ---
-            # These just move to the next question state
-            NP_Q1_VPN: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{NP_Q2_CLOUD}$")],
-            NP_Q2_CLOUD: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{NP_Q3_EPIC_CODE}$")],
-            NP_Q3_EPIC_CODE: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{NP_Q4_EPIC_PROFILE}$")],
-            NP_Q4_EPIC_PROFILE: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{NP_Q5_SHORTCUT}$")],
-            NP_Q5_SHORTCUT: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{NP_Q6_LAUNCH}$")],
-            NP_Q6_LAUNCH: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{NP_Q7_FIND_ISLAND}$")],
-            NP_Q7_FIND_ISLAND: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{NP_Q8_SETUP}$")],
-            NP_Q8_SETUP: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{NP_Q9_PLAY_130}$")],
-            NP_Q9_PLAY_130: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{NP_Q10_LIKE}$")],
-            NP_Q10_LIKE: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{NP_Q11_SAVE}$")],
-            NP_Q11_SAVE: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{NP_Q12_INFLUENCER}$")],
-            NP_Q12_INFLUENCER: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_GET_INFLUENCER_NAME$")],
-
-            EP_Q1_FIND_ISLAND: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{EP_Q2_SETUP}$")],
-            EP_Q2_SETUP: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{EP_Q3_PLAY_130}$")],
-            EP_Q3_PLAY_130: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{EP_Q4_LIKE}$")],
-            EP_Q4_LIKE: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{EP_Q5_SAVE}$")],
-            EP_Q5_SAVE: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{EP_Q6_INFLUENCER}$")],
-            EP_Q6_INFLUENCER: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_GET_INFLUENCER_NAME$")],
-            
-            S_Q1_VPN: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{S_Q2_CLOUD}$")],
-            S_Q2_CLOUD: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{S_Q3_EPIC_CODE}$")],
-            S_Q3_EPIC_CODE: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{S_Q4_EPIC_PROFILE}$")],
-            S_Q4_EPIC_PROFILE: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{S_Q5_SHORTCUT}$")],
-            S_Q5_SHORTCUT: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{S_Q6_LAUNCH}$")],
-            S_Q6_LAUNCH: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{S_Q7_FIND_ISLAND}$")],
-            S_Q7_FIND_ISLAND: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{S_Q8_SETUP}$")],
-            S_Q8_SETUP: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{S_Q9_PLAY_130}$")],
-            S_Q9_PLAY_130: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{S_Q10_LIKE}$")],
-            S_Q10_LIKE: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{S_Q11_SAVE}$")],
-            S_Q11_SAVE: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{S_Q12_INFLUENCER}$")],
-            S_Q12_INFLUENCER: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{S_Q13_FINAL}$")],
-            S_Q13_FINAL: [CallbackQueryHandler(handle_yes_option, pattern=f"^yes_{S_Q14_GET_USERNAME}$")],
-            
-            # --- "No" handlers (B1/B2) ---
-            # These are more complex and are routed to generic handlers
-            **{
-                state: [
-                    CallbackQueryHandler(handle_no_option, pattern=f"^no_{state_name}$"),
-                    CallbackQueryHandler(handle_no_go_to_channel, pattern="^no_go_to_channel_"),
-                    CallbackQueryHandler(handle_no_link, pattern="^no_link_"),
-                    CallbackQueryHandler(handle_no_print_codes, pattern="^no_print_codes$"),
-                    CallbackQueryHandler(handle_yes_option, pattern="^yes_"), # Catches B1/B2 "Yes" answers
-                ]
-                for state, state_name in [
-                    (NP_Q1_VPN, 'NP_Q1_VPN'), (NP_Q2_CLOUD, 'NP_Q2_CLOUD'), (NP_Q3_EPIC_CODE, 'NP_Q3_EPIC_CODE'),
-                    (NP_Q4_EPIC_PROFILE, 'NP_Q4_EPIC_PROFILE'), (NP_Q5_SHORTCUT, 'NP_Q5_SHORTCUT'), (NP_Q6_LAUNCH, 'NP_Q6_LAUNCH'),
-                    (NP_Q7_FIND_ISLAND, 'NP_Q7_FIND_ISLAND'), (NP_Q8_SETUP, 'NP_Q8_SETUP'), (NP_Q9_PLAY_130, 'NP_Q9_PLAY_130'),
-                    (NP_Q10_LIKE, 'NP_Q10_LIKE'), (NP_Q11_SAVE, 'NP_Q11_SAVE'),
-                    (EP_Q1_FIND_ISLAND, 'EP_Q1_FIND_ISLAND'), (EP_Q2_SETUP, 'EP_Q2_SETUP'), (EP_Q3_PLAY_130, 'EP_Q3_PLAY_130'),
-                    (EP_Q4_LIKE, 'EP_Q4_LIKE'), (EP_Q5_SAVE, 'EP_Q5_SAVE'),
-                    (S_Q1_VPN, 'S_Q1_VPN'), (S_Q2_CLOUD, 'S_Q2_CLOUD'), (S_Q3_EPIC_CODE, 'S_Q3_EPIC_CODE'),
-                    (S_Q4_EPIC_PROFILE, 'S_Q4_EPIC_PROFILE'), (S_Q5_SHORTCUT, 'S_Q5_SHORTCUT'), (S_Q6_LAUNCH, 'S_Q6_LAUNCH'),
-                    (S_Q7_FIND_ISLAND, 'S_Q7_FIND_ISLAND'), (S_Q8_SETUP, 'S_Q8_SETUP'), (S_Q9_PLAY_130, 'S_Q9_PLAY_130'),
-                    (S_Q10_LIKE, 'S_Q10_LIKE'), (S_Q11_SAVE, 'S_Q11_SAVE'),
-                    
-                    # Special "No" handlers for last questions
-                    (NP_Q12_INFLUENCER, 'NP_Q12_INFLUENCER'),
-                    (EP_Q6_INFLUENCER, 'EP_Q6_INFLUENCER'),
-                    (S_Q12_INFLUENCER, 'S_Q12_INFLUENCER'),
-                    (S_Q13_FINAL, 'S_Q13_FINAL'),
-                ]
-            },
-            
-            # Special "No" handlers
-            NP_Q12_INFLUENCER: [CallbackQueryHandler(handle_influencer_no, pattern="^no_NP_Q12_INFLUENCER$")],
-            EP_Q6_INFLUENCER: [CallbackQueryHandler(handle_influencer_no, pattern="^no_EP_Q6_INFLUENCER$")],
-            S_Q12_INFLUENCER: [CallbackQueryHandler(handle_influencer_no, pattern="^no_S_Q12_INFLUENCER$")],
-            S_Q13_FINAL: [CallbackQueryHandler(handle_support_final_no, pattern="^no_S_Q13_FINAL$")],
-            
-            # --- Text Input States ---
-            GET_INFLUENCER_NAME: [
-                MessageHandler(filters.TEXT & ~filters.COMMAND, save_influencer_name)
-            ],
-            S_Q14_GET_USERNAME: [
-                MessageHandler(filters.TEXT & ~filters.COMMAND, save_support_username)
-            ],
-        },
+        states=state_handlers,
         fallbacks=[
             CallbackQueryHandler(show_main_menu, pattern="^main_menu$"),
             CommandHandler("start", start_cmd),
             CommandHandler("cancel", cancel)
         ],
-        per_message=False # Allows different users to be in different states
+        per_message=False
     )
 
     application.add_handler(conv_handler)
@@ -818,5 +817,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
 
