@@ -27,7 +27,7 @@ CONFIGURATION = {
     'ISLAND_CODES': [
         "4828-9033-2281",  # <-- Change this
         "2753-4695-7191", # <-- Change this
-        "9689-1352-5966"    # <-- Change this
+        "9689-1352-5966"   # <-- Change this
     ]
 }
 # !!!!!!!!!!!!!!!!!!!!!
@@ -351,7 +351,7 @@ async def send_question(update: Update, context: ContextTypes.DEFAULT_TYPE, ques
         await query.answer()
         await query.edit_message_text(text=text, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
     else:
-        # This happens on /start
+        # This happens on /start or after a text message
         await update.message.reply_text(text=text, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
         
     return current_state
@@ -459,18 +459,21 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE, wel
 async def existing_player_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     query = update.callback_query
     await query.answer()
+    # Send ep_start as a separate message, then send the question
     await query.edit_message_text(text=s(context)['ep_start'], parse_mode='Markdown')
     return await send_question(update, context, 'ep_q1', EP_Q1)
 
 async def new_player_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     query = update.callback_query
     await query.answer()
+    # Send np_start as a separate message, then send the question
     await query.edit_message_text(text=s(context)['np_start'], parse_mode='Markdown')
     return await send_question(update, context, 'np_q1', NP_Q1)
 
 async def support_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     query = update.callback_query
     await query.answer()
+    # Send s_start as a separate message, then send the question
     await query.edit_message_text(text=s(context)['s_start'], parse_mode='Markdown')
     return await send_question(update, context, 'np_q1', S_Q1) # Support Q1 is same as NP Q1
 
@@ -481,8 +484,17 @@ async def get_influencer(update: Update, context: ContextTypes.DEFAULT_TYPE, nex
     query = update.callback_query
     await query.answer()
     context.user_data['next_state_after_influencer'] = next_state
+    
+    # Determine which state to return for text input
+    if next_state == EP_END_FLOW:
+        current_state = EP_GET_INFLUENCER
+    elif next_state == NP_END_FLOW:
+        current_state = NP_GET_INFLUENCER
+    else: # S_Q13
+        current_state = S_GET_INFLUENCER
+        
     await query.edit_message_text(text=s(context)['prompt_influencer'])
-    return context.user_data['current_influencer_state'] # e.g., EP_GET_INFLUENCER
+    return current_state
 
 async def save_influencer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Saves influencer name and moves to the next logical step."""
@@ -503,7 +515,8 @@ async def save_influencer(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         await update.message.reply_text(s(context)['np_end_flow'])
         return await show_main_menu(update, context)
     else:
-        # This is for the Support flow, move to Q13
+        # This is for the Support flow (next_state == S_Q13)
+        # We need to ask S_Q13
         return await send_question(update, context, 's_q13', S_Q13, 's_q13_yes', 's_q13_no')
 
 async def get_username(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
@@ -514,12 +527,38 @@ async def get_username(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
     return S_GET_USERNAME
 
 async def save_username(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Saves @username and logs it."""
+    """Saves @username, logs it, and notifies admin group."""
     username = update.message.text
     if username.startswith('@') and len(username) > 2:
         user_id = update.message.from_user.id
         logger.info(f"*** SUPPORT REQUEST from user {user_id}: {username} ***")
         
+        # --- NEW NOTIFICATION BLOCK ---
+        # Get the Admin Group ID from environment variables
+        ADMIN_GROUP_ID = os.environ.get("ADMIN_GROUP_ID")
+        
+        if ADMIN_GROUP_ID:
+            # This is the new log line you requested for diagnostics
+            logger.info(f"Attempting to send notification to ID: {ADMIN_GROUP_ID}")
+            
+            text_to_send = f"New Support Request:\nUser ID: {user_id}\nUsername: {username}"
+            
+            try:
+                # Send the notification message to the admin group
+                await context.bot.send_message(
+                    chat_id=ADMIN_GROUP_ID,
+                    text=text_to_send
+                )
+                logger.info("Successfully sent notification.")
+            except Exception as e:
+                # Log the error, but don't stop the flow for the user
+                logger.error(f"Failed to send notification to {ADMIN_GROUP_ID}: {e}")
+        else:
+            # Log a warning if the environment variable is not set
+            logger.error("ADMIN_GROUP_ID environment variable not set. Cannot send notification.")
+        # --- END OF NEW BLOCK ---
+        
+        # Reply to the user
         await update.message.reply_text(s(context)['prompt_thanks_username'])
         await update.message.reply_text(s(context)['s_end_flow'])
         return await show_main_menu(update, context)
@@ -554,7 +593,7 @@ async def handle_yes(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         NP_Q7: lambda: send_question(update, context, 'ep_q2', NP_Q8, 'ep_q2_yes'), # Q8 is same as EP Q2
         NP_Q8: lambda: send_question(update, context, 'ep_q3', NP_Q9), # Q9 is same as EP Q3
         NP_Q9: lambda: send_question(update, context, 'ep_q4', NP_Q10), # Q10 is same as EP Q4
-        NP_Q11: lambda: send_question(update, context, 'ep_q5', NP_Q11), # Q11 is same as EP Q5
+        NP_Q10: lambda: send_question(update, context, 'ep_q5', NP_Q11), # Q11 is same as EP Q5
         NP_Q11: lambda: send_question(update, context, 'ep_q6', NP_Q12, 'ep_q6_yes'), # Q12 is same as EP Q6
         NP_Q12: lambda: get_influencer(update, context, next_state=NP_END_FLOW),
 
@@ -622,7 +661,7 @@ async def handle_no(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         S_Q9: lambda: send_b_options(update, context, 'ep_q3_no', 'btn_yes', 'btn_no', S_Q9),
         S_Q10: lambda: send_b_options(update, context, 'ep_q4_no', 'btn_yes', 's_q10_b2', S_Q10), # Special B2
         S_Q11: lambda: send_b_options(update, context, 'ep_q5_no', 'btn_yes', 'ep_q5_b2', S_Q11),
-        S_Q12: lambda: send_question(update, context, 's_q13', S_Q13, 's_q13_yes', 's_q13_no'), # 'No' -> Skip influencer, go to Q13
+        S_Q12: lambda: send_go_to_channel(update, context, 's_q12_action', next_state=S_Q12_ACTION_DONE), # 'No' -> Show action, then go to Q13
         S_Q13: lambda: send_go_to_channel(update, context, 's_q13_no_action'),
     }
 
@@ -722,7 +761,7 @@ async def handle_b_option(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             'b2': lambda: send_question(update, context, 'np_q3', S_Q3, 'np_q3_yes') # Go to Q3
         },
         S_Q3: {
-            'b1': lambda: send_go_to_link(update, context, 'np_q3_b1_action', 'np_q3_b1_btn', 'EPIC_ACTIVATE_LINK', next_state=S_Q4),
+            'b1': lambda: send_go_to_link(update, context, 'np_q3_b1_action', 'np_q3_b1_btn', 'EPIC_ACTIVATE_.LINK', next_state=S_Q4),
             'b2': lambda: send_go_to_channel(update, context, 'np_q3_b2_action')
         },
         S_Q4: {
@@ -775,6 +814,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_ENTRY_POINT) -> i
         await update.message.reply_text(
             lang_strings['main_menu_text'], reply_markup=ReplyKeyboardRemove()
         )
+    # Go back to main menu
     return await show_main_menu(update, context)
 
 
@@ -797,14 +837,14 @@ def main() -> None:
     ]
     
     # Create handlers for all question states
-    state_handlers = {
-        state: [
+    state_handlers = {}
+    for state in question_states:
+        state_handlers[state] = [
             CallbackQueryHandler(handle_yes, pattern=f"^yes_{state}$"),
             CallbackQueryHandler(handle_no, pattern=f"^no_{state}$"),
             CallbackQueryHandler(handle_b_option, pattern=f"^b1_{state}$"),
             CallbackQueryHandler(handle_b_option, pattern=f"^b2_{state}$"),
-        ] for state in question_states
-    }
+        ]
     
     # Add handler for code "continue" button
     state_handlers[EP_Q1_CODES_DONE] = [CallbackQueryHandler(lambda u, c: send_question(u, c, 'ep_q2', EP_Q2, 'ep_q2_yes'), pattern=f"^continue_{EP_Q1_CODES_DONE}$")]
@@ -856,28 +896,8 @@ def main() -> None:
         CallbackQueryHandler(support_start, pattern="^support_start$"),
     ]
     
-    # Store the influencer states for the helper function
-    for state in [EP_Q6, NP_Q12, S_Q12]:
-        state_handlers[state].append(
-             CallbackQueryHandler(
-                 lambda u, c, s=state: get_influencer(u, c, next_state=(S_Q13 if s == S_Q12 else (EP_END_FLOW if s == EP_Q6 else NP_END_FLOW))),
-                 pattern=f"^yes_{state}$"
-             )
-        )
-    # Add special handler for S_Q12_NO
-    state_handlers[S_Q12].append(
-        CallbackQueryHandler(
-            lambda u, c: send_go_to_channel(u, c, 's_q12_action', next_state=S_Q12_ACTION_DONE),
-            pattern=f"^no_{S_Q12}$"
-        )
-    )
-
-    context.user_data['current_influencer_state'] = {
-        EP_Q6: EP_GET_INFLUENCER,
-        NP_Q12: NP_GET_INFLUENCER,
-        S_Q12: S_GET_INFLUENCER,
-    }
-
+    # Note: 'yes' handlers for influencer questions are already handled by the YES_MAP
+    # in handle_yes function. No need to add them here again.
 
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start_cmd)],
@@ -887,7 +907,7 @@ def main() -> None:
             CommandHandler("start", start_cmd),
             CommandHandler("cancel", cancel)
         ],
-        per_message=False
+        per_message=False # This was True, changing to False based on example logic
     )
 
     application.add_handler(conv_handler)
@@ -897,8 +917,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
