@@ -1,5 +1,6 @@
 import logging
 import os
+from dotenv import load_dotenv  # <-- ADD THIS IMPORT
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import (
     Application,
@@ -16,6 +17,11 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
 logger = logging.getLogger(__name__)
+
+# --- NEW DIAGNOSTIC LINE ---
+load_dotenv()  # <-- ADD THIS TO LOAD THE .env FILE
+logger.info(f"SCRIPT START: Loaded ADMIN_GROUP_ID = {os.environ.get('ADMIN_GROUP_ID')}")
+# --- END DIAGNOSTIC LINE ---
 
 # --- CONFIGURATION ---
 # !!! IMPORTANT: Fill in all your links and codes here !!!
@@ -814,7 +820,7 @@ async def handle_b_option(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         },
         S_Q11: { # Same as EP_Q5
             'b1': lambda: send_go_to_channel(update, context, 'ep_q5_b1_action', next_state=S_Q12),
-            'b2': lambda: send_question(update, context, 's_q12', S_Q1List, 's_q12_yes', 's_q12_no') # Go to Q12
+            'b2': lambda: send_question(update, context, 's_q12', S_Q12, 's_q12_yes', 's_q12_no') # Go to Q12
         },
     }
 
@@ -890,7 +896,7 @@ def main() -> None:
         S_Q2_URL_DONE:    lambda u, c: send_question(u, c, 'np_q3', S_Q3, 'np_q3_yes'),
         S_Q3_URL_DONE:    lambda u, c: send_question(u, c, 'np_q4', S_Q4),
         S_Q4_URL_DONE:    lambda u, c: send_question(u, c, 'np_q5', S_Q5),
-        S_Q5_GTO_DONE:   lambda u, c: send_question(u, c, 'np_q6', S_Q6),
+        S_Q5_GOTO_DONE:   lambda u, c: send_question(u, c, 'np_q6', S_Q6),
         S_Q6_URL_DONE:    lambda u, c: send_question(u, c, 'ep_q1', S_Q7),
         S_Q7_CODES_DONE:  lambda u, c: send_question(u, c, 'ep_q2', S_Q8, 'ep_q2_yes'),
         S_Q8_GOTO_DONE:   lambda u, c: send_question(u, c, 'ep_q3', S_Q9),
@@ -937,4 +943,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+
 
